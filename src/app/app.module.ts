@@ -16,6 +16,7 @@ import { ResultComponent } from './Dashboard/start-quiz/result/result.component'
 import { LogoutComponent } from './logout/logout.component';
 import {routing} from './app-routing.module';
 import {FormsModule} from '@angular/forms';
+import {BackendService} from './backend.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import {FormsModule} from '@angular/forms';
     routing,
     FormsModule
   ],
-  providers: [],
+  providers: [BackendService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
