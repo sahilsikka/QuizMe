@@ -13,6 +13,9 @@ import { QuizListComponent } from './Dashboard/quiz-history/quiz-list/quiz-list.
 import { QuestionListComponent } from './Dashboard/quiz-history/quiz-list/question-list/question-list.component';
 import { QuestionsComponent } from './Dashboard/start-quiz/questions/questions.component';
 import { ResultComponent } from './Dashboard/start-quiz/result/result.component';
+import { LogoutComponent } from './logout/logout.component';
+import {routing} from './app-routing.module';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,10 +30,13 @@ import { ResultComponent } from './Dashboard/start-quiz/result/result.component'
     QuizListComponent,
     QuestionListComponent,
     QuestionsComponent,
-    ResultComponent
+    ResultComponent,
+    LogoutComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    routing,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
