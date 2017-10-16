@@ -17,8 +17,9 @@ import { ProfileComponent } from './dashboard/profile/profile.component';
 import { StartQuizComponent } from './dashboard/start-quiz/start-quiz.component';
 import { QuestionsComponent } from './dashboard/start-quiz/questions/questions.component';
 import { ResultComponent } from './dashboard/start-quiz/result/result.component';
-import {HeaderComponent} from "./shared/components/header/header.component";
-import {SidebarComponent} from "./shared/components/sidebar/sidebar.component";
+import {HeaderComponent} from './shared/components/header/header.component';
+import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import {SidebarComponent} from "./shared/components/sidebar/sidebar.component";
   imports: [
     BrowserModule,
     routing,
-    FormsModule
+    FormsModule,
+    TranslateModule.forRoot()
   ],
   providers: [BackendService],
   bootstrap: [AppComponent]
