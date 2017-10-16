@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,13 +11,20 @@ export class SignUpComponent implements OnInit {
   lastname= '';
   username= '';
   password= '';
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute) {
+
+  }
 
   ngOnInit() {
   }
 
-  register(){
-    console.log();
-  }
+  registerUser(){
+    console.log('Inside Register User Function');
+    console.log(this.username + ' ' + this.password + ' ' + this.firstname + ' ' + this.lastname);
 
+    // Add data to database via service
+
+    // On successful login redirect to login page
+    this.router.navigateByUrl('/login');
+  }
 }
