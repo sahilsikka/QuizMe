@@ -4,12 +4,12 @@ import {LoginComponent} from './login/login.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProfileComponent} from './dashboard/profile/profile.component';
 import {LogoutComponent} from './logout/logout.component';
-import {ProblemsComponent} from './problems/problems.component';
 import {QuizHistoryComponent} from './quiz-history/quiz-history.component';
 import {ProgressComponent} from './progress/progress.component' ;
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {HelpComponent} from './help/help.component';
-import {PreferencesComponent} from "./dashboard/preferences/preferences.component";
+import {PreferencesComponent} from './dashboard/preferences/preferences.component';
+import {QuizComponent} from './quiz/quiz.component'
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,7 +21,7 @@ const appRoutes: Routes = [
    { path: 'preferences', component: PreferencesComponent }
   ]},
 
-  { path: 'problems', component: ProblemsComponent },
+  { path: 'quiz', component: QuizComponent },
   { path: 'quiz-history', component: QuizHistoryComponent },
   { path: 'progress', component: ProgressComponent },
   { path: 'change-password', component: ChangePasswordComponent },

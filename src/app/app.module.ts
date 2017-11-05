@@ -12,12 +12,13 @@ import {BackendService} from './backend.service';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import {HeaderComponent} from './shared/components/header/header.component';
 import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
-import { ProblemsComponent } from './problems/problems.component';
 import {QuizHistoryComponent} from './quiz-history/quiz-history.component';
 import { ProgressComponent } from './progress/progress.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HelpComponent } from './help/help.component';
 import { PreferencesComponent } from './dashboard/preferences/preferences.component';
+import {QuizComponent} from './quiz/quiz.component';
+import {HttpModule} from "@angular/http";
 
 
 @NgModule({
@@ -31,16 +32,17 @@ import { PreferencesComponent } from './dashboard/preferences/preferences.compon
     HeaderComponent,
     SidebarComponent,
     QuizHistoryComponent,
-    ProblemsComponent,
     ProgressComponent,
     ChangePasswordComponent,
     HelpComponent,
-    PreferencesComponent
+    PreferencesComponent,
+    QuizComponent
   ],
   imports: [
     BrowserModule,
     routing,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [BackendService],
   bootstrap: [AppComponent]

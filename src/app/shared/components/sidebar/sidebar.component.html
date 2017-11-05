@@ -3,8 +3,8 @@
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Dashboard'  }}
     </a>
-      <div class="nested-menu">
-        <a routerLink="/problems" [routerLinkActive]="['router-link-active']" class="list-group-item" (click)="addExpandClass('pages')">
+      <!--<div class="nested-menu">
+        <a routerLink="/quiz" [routerLinkActive]="['router-link-active']" class="list-group-item" (click)="addExpandClass('pages')">
           <span><i class="fa fa-plus"></i>&nbsp; {{ 'Problems'  }}</span>
         </a>
         <li class="nested" [class.expand]="showMenu === 'pages'">
@@ -26,7 +26,10 @@
             </li>
           </ul>
         </li>
-      </div>
+      </div>-->
+      <a [routerLink]="['/quiz']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Quiz'  }}
+      </a>
         <a [routerLink]="['/quiz-history']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Quiz History'  }}
         </a>
