@@ -6,12 +6,17 @@ import { Router, NavigationEnd } from '@angular/router';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent implements OnInit {
 
     pushRightClass = 'push-right';
 
-    constructor() {
-
+    constructor(public router: Router) {
+        this.router.events.subscribe((val) => {
+            if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
+                this.toggleSidebar();
+            }
+        });
     }
 
     ngOnInit() {}
@@ -34,5 +39,6 @@ export class HeaderComponent implements OnInit {
     onLoggedout() {
         localStorage.removeItem('isLoggedin');
     }
+
 
 }

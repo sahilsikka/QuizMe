@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {BackendService} from '../backend.service';
 
 @Component({
   selector: 'app-login',
@@ -10,20 +11,38 @@ export class LoginComponent implements OnInit {
   username= '';
   password= '';
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private backend: BackendService) {
   }
 
   ngOnInit() {
   }
-
-  authenticateUser(){
+  logged: any;
+  authenticateUser() {
     console.log('Inside login function');
-    console.log(this.username + ' ' + this.password);
 
     // Authenticate login function through service
+/*response = {
+  'id': 1,
+  'email': 'abc@gmail.com',
+  'fname': null,
+  'lname': null
+};*/
+    this.backend.getLoginRequest(this.username, this.password).subscribe(
+      response => {
+        console.log(response);
+        if (response.status != 'Login Failed') {
+          localStorage.setItem('userName', response.email);
+          localStorage.setItem('userId', response.id);
+          this.router.navigateByUrl('/dashboard');
+        }
+        else
+        {
+          alert('Please try again');
+        }
 
+
+      });
+  }
 
     // Redirection to dashboard on successful login
-     this.router.navigateByUrl('/dashboard');
-  }
 }

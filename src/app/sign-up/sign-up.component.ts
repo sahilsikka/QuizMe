@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {BackendService} from '../backend.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,7 +12,7 @@ export class SignUpComponent implements OnInit {
   lastname= '';
   username= '';
   password= '';
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private backend: BackendService) {
 
   }
 
@@ -24,7 +25,12 @@ export class SignUpComponent implements OnInit {
 
     // Add data to database via service
 
+    this.backend.registerUser(this.username, this.password, this.firstname, this.lastname).subscribe(response => {
+      console.log(response);
+    });
     // On successful login redirect to login page
     this.router.navigateByUrl('/login');
+
+
   }
 }

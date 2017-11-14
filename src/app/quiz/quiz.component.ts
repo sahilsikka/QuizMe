@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
-import { QuizService } from '../services/quiz.service';
-import { HelperService } from '../services/helper.service';
 import { Option, Question, Quiz, QuizConfig } from '../models/index';
+import {BackendService} from '../backend.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css'],
-  providers: [QuizService]
+  providers: [BackendService]
 })
+
 export class QuizComponent implements OnInit {
-  quizes: any[];
   quiz: Quiz = new Quiz(null);
   mode = 'quiz';
-  quizName: string;
   config: QuizConfig = {
     'allowBack': true,
     'allowReview': true,
@@ -25,7 +24,7 @@ export class QuizComponent implements OnInit {
     'richText': false,
     'shuffleQuestions': false,
     'shuffleOptions': false,
-    'showClock': false,
+    'showClock': true,
     'showPager': true,
     'theme': 'none'
   };
@@ -36,21 +35,23 @@ export class QuizComponent implements OnInit {
     count: 1
   };
 
-  constructor(private quizService: QuizService) { }
-
-  ngOnInit() {
-    this.quizes = this.quizService.getAll();
-    this.quizName = this.quizes[0].id;
-    this.loadQuiz(this.quizName);
+  constructor(private router: Router, private route: ActivatedRoute, private backendService: BackendService) {
   }
 
-  loadQuiz(quizName: string) {
-    this.quizService.get(quizName).subscribe(res => {
+  ngOnInit() {
+    this.loadQuiz();
+  }
+
+  loadQuiz(){
+    const userId = localStorage.getItem('userId');
+    this.backendService.getQuizQuestions(userId).subscribe(res => {
       this.quiz = new Quiz(res);
+      localStorage.setItem('quizId', res.quiz_id);
       this.pager.count = this.quiz.questions.length;
     });
     this.mode = 'quiz';
   }
+
 
   get filteredQuestions() {
     return (this.quiz.questions) ?
@@ -58,9 +59,8 @@ export class QuizComponent implements OnInit {
   }
 
   onSelect(question: Question, option: Option) {
-    if (question.questionTypeId === 1) {
-      question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; });
-    }
+
+    question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; });
 
     if (this.config.autoMove) {
       this.goTo(this.pager.index + 1);
@@ -82,12 +82,37 @@ export class QuizComponent implements OnInit {
     return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
   };
 
-  onSubmit() {
-    let answers = [];
-    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.answered }));
+  setAnswers(){
+    this.quiz.questions.forEach(x => x.setAnswer());
+  }
 
-    // Post your data to the server here. answers contains the questionId and the users' answer.
-    console.log(this.quiz.questions);
-    this.mode = 'result';
+
+  onSubmit() {
+    console.log('on submit function')
+    this.setAnswers();
+    const user_id =  localStorage.getItem('userId');
+    const quiz_id = localStorage.getItem('quizId');
+    let answers = [];
+    this.quiz.questions.forEach(x => answers.push({ 'user_choice': x.answered, 'question_id': x.id, 'time_taken': 15 }));
+    console.log(answers);
+    const request = {
+      'user_id': user_id,
+      'quiz_id': quiz_id,
+      'answers': answers
+    }
+    this.backendService.submitAnswers(request).subscribe(response => {
+      console.log(response);
+      if(response.status === 'Success'){
+        this.mode = 'result';
+      }
+    });
+  }
+
+  startAnotherQuiz(){
+    this.router.navigateByUrl('/quiz');
+  }
+
+  openDashboard() {
+    this.router.navigateByUrl('/dashboard');
   }
 }
