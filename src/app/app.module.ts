@@ -13,14 +13,15 @@ import { ProfileComponent } from './dashboard/profile/profile.component';
 
 import {HeaderComponent} from './shared/components/header/header.component';
 import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
-import { ProblemsComponent } from './problems/problems.component';
 import {QuizHistoryComponent} from './quiz-history/quiz-history.component';
 import { ProgressComponent } from './progress/progress.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HelpComponent } from './help/help.component';
 import { PreferencesComponent } from './dashboard/preferences/preferences.component';
-import {TranslateModule} from "@ngx-translate/core";
-import {Http, HttpModule} from "@angular/http";
+
+import {QuizComponent} from './quiz/quiz.component';
+import {HttpModule} from '@angular/http';
+
 
 
 @NgModule({
@@ -34,18 +35,17 @@ import {Http, HttpModule} from "@angular/http";
     HeaderComponent,
     SidebarComponent,
     QuizHistoryComponent,
-    ProblemsComponent,
     ProgressComponent,
     ChangePasswordComponent,
     HelpComponent,
-    PreferencesComponent
+    PreferencesComponent,
+    QuizComponent
   ],
   imports: [
     BrowserModule,
     routing,
     HttpModule,
-    FormsModule,
-    TranslateModule.forRoot()
+    FormsModule
   ],
   providers: [BackendService],
   bootstrap: [AppComponent]

@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
       response => {
         console.log(response);
         if (response.status != 'Login Failed') {
+          localStorage.setItem('userName', response.email);
+          localStorage.setItem('userId', response.id);
           this.router.navigateByUrl('/dashboard');
         }
         else

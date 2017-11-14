@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 @Injectable()
 export class BackendService {
 
-  baseUrl= 'https://quizme-services.herokuapp.com/';
+  baseUrl= 'http://quizme-services.us-east-1.elasticbeanstalk.com';
   header = new Headers();
 
   constructor(private http: Http, private router: Router) {
@@ -31,12 +31,29 @@ export class BackendService {
 
       const payLoad = {
         'email': email,
-        'password': password
+        'password': password,
+        'fname': fname,
+        'lname': lname
       };
     this.header = new Headers();
 
     console.log(JSON.stringify(payLoad));
     return this.http.post(this.baseUrl + '/user/registration', JSON.stringify(payLoad))
+      .map((response: Response) => {
+        return response.json();
+      });
+  }
+
+  getQuizQuestions(userId){
+    return this.http.get(this.baseUrl + '/quiz/' + userId)
+      .map(
+        (response: Response) => {
+          return response.json();
+        });
+  }
+
+  submitAnswers(answer){
+    return this.http.post(this.baseUrl + '/quiz', answer)
       .map((response: Response) => {
         return response.json();
       });
