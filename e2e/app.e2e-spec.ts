@@ -1,10 +1,10 @@
-import { QuizMePage } from './app.po';
+import { SbAdminCliUpdatePage } from './app.po';
 
-describe('quiz-me App', () => {
-  let page: QuizMePage;
+describe('sb-admin-cli-update App', () => {
+  let page: SbAdminCliUpdatePage;
 
   beforeEach(() => {
-    page = new QuizMePage();
+    page = new SbAdminCliUpdatePage();
   });
 
   it('should display welcome message', () => {

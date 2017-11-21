@@ -1,53 +1,40 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
+import { Http, HttpModule } from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LogoutComponent } from './logout/logout.component';
-import {routing} from './app-routing.module';
-import {FormsModule} from '@angular/forms';
+import { AuthGuard } from './shared';
 import {BackendService} from './backend.service';
-import { ProfileComponent } from './dashboard/profile/profile.component';
-
-import {HeaderComponent} from './shared/components/header/header.component';
-import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
-import {QuizHistoryComponent} from './quiz-history/quiz-history.component';
-import { ProgressComponent } from './progress/progress.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { HelpComponent } from './help/help.component';
-import { PreferencesComponent } from './dashboard/preferences/preferences.component';
-
-import {QuizComponent} from './quiz/quiz.component';
-import {HttpModule} from '@angular/http';
-
-
-
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: Http) {
+    // for development
+    // return new TranslateHttpLoader(http, '/start-angular/SB-Admin-BS4-Angular-4/master/dist/assets/i18n/', '.json');
+    return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+}
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SignUpComponent,
-    DashboardComponent,
-    LogoutComponent,
-    ProfileComponent,
-    HeaderComponent,
-    SidebarComponent,
-    QuizHistoryComponent,
-    ProgressComponent,
-    ChangePasswordComponent,
-    HelpComponent,
-    PreferencesComponent,
-    QuizComponent
-  ],
-  imports: [
-    BrowserModule,
-    routing,
-    HttpModule,
-    FormsModule
-  ],
-  providers: [BackendService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpModule,
+        AppRoutingModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [Http]
+            }
+        })
+    ],
+    providers: [AuthGuard, BackendService],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

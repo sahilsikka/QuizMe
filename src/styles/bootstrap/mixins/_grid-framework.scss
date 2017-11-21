@@ -1,7 +1,7 @@
 // Framework grid generation
 //
-// Used only by Bootstrap to generate the correct number of grid classes given
-// any value of `$grid-columns`.
+// Used only by Bootstrap to generate the correct number of quiz classes given
+// any value of `$quiz-columns`.
 
 @mixin make-grid-columns($columns: $grid-columns, $gutters: $grid-gutter-widths, $breakpoints: $grid-breakpoints) {
   // Common properties for all breakpoints

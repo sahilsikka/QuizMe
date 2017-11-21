@@ -1,6 +1,6 @@
 import { browser, by, element } from 'protractor';
 
-export class QuizMePage {
+export class SbAdminCliUpdatePage {
   navigateTo() {
     return browser.get('/');
   }

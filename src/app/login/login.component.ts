@@ -1,48 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {routerTransition} from '../router.animations';
 import {BackendService} from '../backend.service';
+import {AuthGuard} from '../shared/guard/auth.guard';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    animations: [routerTransition()]
 })
 export class LoginComponent implements OnInit {
-  username= '';
-  password= '';
+    model: any = {};
+    email: String;
+    password: String;
 
-  constructor(private router: Router, private route: ActivatedRoute, private backend: BackendService) {
-  }
+    constructor(public router: Router, private backend: BackendService, private authguard: AuthGuard) {
+    }
 
-  ngOnInit() {
-  }
-  logged: any;
-  authenticateUser() {
-    console.log('Inside login function');
-
-    // Authenticate login function through service
-/*response = {
-  'id': 1,
-  'email': 'abc@gmail.com',
-  'fname': null,
-  'lname': null
-};*/
-    this.backend.getLoginRequest(this.username, this.password).subscribe(
-      response => {
-        console.log(response);
-        if (response.status != 'Login Failed') {
-          localStorage.setItem('userName', response.email);
-          localStorage.setItem('userId', response.id);
-          this.router.navigateByUrl('/dashboard');
+    ngOnInit() {
+        if (this.router.url === '/login' &&  this.authguard.canActivate()) {
+            this.router.navigate(['/dashboard']);
         }
-        else
-        {
-          alert('Please try again');
-        }
+    }
 
+    login() {
+        this.backend.authUser(this.model.email, this.model.password).subscribe(
+            status => {
+                console.log(status);
+                if (status.status === 'Success') {
+                    this.backend.getUser(status.id).subscribe(
+                        user => {
+                            localStorage.setItem('currentUser', JSON.stringify(user));
+                            this.router.navigateByUrl('/dashboard');
 
-      });
-  }
-
-    // Redirection to dashboard on successful login
+                        });
+                } else {
+                    alert('Please try again');
+                }
+            });
+    }
 }
