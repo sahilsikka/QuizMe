@@ -1,16 +1,57 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Quiz History'" [icon]="'fa-desktop'"></app-page-header>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-8">
             <div *ngFor="let item of result; let i = index;" class="card mb-3">
-                <div class="card-header card-default">
-                    Quiz No. {{i + 1}}
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <span class="icon-small"><i class="fa fa-check-circle fa-fw" style="float: left; font-size: 20px; color:#2ec866;"></i>
+                            <h4 style="color: #2ec866; font-size: 1.3125em; opacity: .6;"><b>Quiz Number: {{i + 1}}</b></h4>
+                            </span>
+                        </div>
+                        <div class="col-sm-4" style="float: right">
+                            <ngb-progressbar type="success" [value]="item.score" [max]="10">
+                                <i>{{item.score*100/10}}%</i>
+                            </ngb-progressbar>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="small bold mdT pull-left">
+                        <p class="col-sm-8">
+                        </p>
+                        <span style="color: #979faf; font-weight: 900">Your Score: </span>
+                        <span style="font-weight: 900">{{item.score}}</span> &ensp;
+                        <span style="color: #979faf; font-weight: 900">Max Score: </span>
+                        <span style="font-weight: 900"> 10</span> &ensp;
+                        <span style="color: #979faf; font-weight: 900">Difficulty: </span>
+                        <span style="font-weight: 900"> Easy </span> &ensp;
+                    </div>
+                    <div style="float: right">
+                        <button class="btn tn-sm btn-success">Questions</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-sm-4">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Performance over {{this.totalQuiz}} Quizzes.
+
                 </div>
                 <div class="card-block">
-                Score = {{item.score}} / 15
+                    <canvas baseChart height="180px"
+                            [colors] = "colorsOverride"
+                            [data]="[this.yourTotalScore,this.totalScore]"
+                            [labels]="['Points Scored', 'Points Lost']"
+                            [legend] = "true"
+                            [chartType]="'doughnut'"
+                            [options] = "options"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                    </canvas>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
