@@ -29,7 +29,6 @@ export class BackendService {
     }
 
     getUser(userId: any) {
-        console.log(userId);
         return this.http.get(this.baseUrl + '/user/' + userId)
             .map((response: Response) => {
                 return response.json();
@@ -56,6 +55,14 @@ export class BackendService {
             .map((response: Response) => {
                 return response.json();
             });
+    }
+
+    getQuestionHistory(quizId, userId) {
+        this.header = new Headers();
+        this.header.append('X-quiz-id', quizId);
+        this.header.append('X-user-id', userId);
+        return this.http.get(this.baseUrl + '/quiz/history', {headers: this.header})
+            .map((response: Response) => response.json());
     }
 
     getUserProficiency(userId: any) {

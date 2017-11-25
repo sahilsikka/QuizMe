@@ -12,6 +12,7 @@ import {AuthGuard} from '../shared/guard/auth.guard';
 })
 export class LoginComponent implements OnInit {
     model: any = {};
+    result: any;
     email: String;
     password: String;
 
@@ -27,13 +28,11 @@ export class LoginComponent implements OnInit {
     login() {
         this.backend.authUser(this.model.email, this.model.password).subscribe(
             status => {
-                console.log(status);
                 if (status.status === 'Success') {
                     this.backend.getUser(status.id).subscribe(
                         user => {
                             localStorage.setItem('currentUser', JSON.stringify(user));
                             this.router.navigateByUrl('/dashboard');
-
                         });
                 } else {
                     alert('Please try again');

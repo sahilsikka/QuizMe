@@ -10,7 +10,9 @@ import { routerTransition } from '../../router.animations';
 export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
-
+    currentUser: any;
+    quizHistories: any;
+    discussions: any;
     constructor() {
         this.sliders.push({
             imagePath: 'assets/images/slider1.jpg',
@@ -44,6 +46,10 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.quizHistories = this.currentUser.quizHistories.length;
+        this.discussions = this.currentUser.discussions.length;
+
     }
 
     public closeAlert(alert: any) {

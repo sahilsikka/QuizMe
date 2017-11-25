@@ -8,10 +8,12 @@ import {Color} from 'ng2-charts';
     selector: 'app-quiz-history',
     templateUrl: './quiz-history.component.html',
     styleUrls: ['./quiz-history.component.scss'],
-    animations: [routerTransition()]
+        animations: [routerTransition()]
 })
 
 export class QuizHistoryComponent implements OnInit {
+    quizId: any;
+    currentUser: any;
     yourTotalScore: number;
     user = JSON.parse(localStorage.getItem('currentUser'));
     userId = this.user.id;
@@ -50,5 +52,11 @@ export class QuizHistoryComponent implements OnInit {
                 this.totalScore = this.result.length * 10 - this.yourTotalScore;
                 this.totalQuiz = this.result.length;
             });
+    }
+
+    toggle(event) {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.quizId = this.currentUser.quizHistories[event.target.id].quizId;
+        localStorage.setItem('quizId', this.quizId );
     }
 }

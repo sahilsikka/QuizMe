@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
     name = ' ' + this.user.fname + ' ' + this.user.lname;
     pushRightClass = 'push-right';
 
-    constructor(private translate: TranslateService, public router: Router) {
+    constructor(public router: Router) {
         this.router.events.subscribe((val) => {
             if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
                 this.toggleSidebar();
@@ -33,16 +33,8 @@ export class HeaderComponent implements OnInit {
         dom.classList.toggle(this.pushRightClass);
     }
 
-    rltAndLtr() {
-        const dom: any = document.querySelector('body');
-        dom.classList.toggle('rtl');
-    }
-
     onLoggedout() {
+        localStorage.removeItem('quizId');
         localStorage.removeItem('currentUser');
-    }
-
-    changeLang(language: string) {
-        this.translate.use(language);
     }
 }
