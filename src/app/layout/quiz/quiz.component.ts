@@ -3,6 +3,7 @@ import { routerTransition } from '../../router.animations';
 import {BackendService} from '../../backend.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Option, Question, Quiz, QuizConfig} from '../../shared';
+import {Observable} from "rxjs/Observable";
 
 
 @Component({
@@ -36,12 +37,17 @@ export class QuizComponent implements OnInit {
         size: 1,
         count: 1
     };
+    timer: any ;
+    tick: any ;
+    sub: any;
     constructor(private router: Router, private route: ActivatedRoute, private backendService: BackendService) {
     }
     ngOnInit() {
         console.log(this.user);
         localStorage.setItem('userId', this.user.id);
         this.loadQuiz();
+        this.timer = Observable.timer(1,1000);
+        this.sub = this.timer.subscribe(t => {this.tick = t;});
     }
 
     loadQuiz() {
@@ -92,6 +98,7 @@ export class QuizComponent implements OnInit {
 
     onSubmit() {
         console.log('on submit function')
+        this.sub.unsubscribe();
         this.setAnswers();
         const user_id =  localStorage.getItem('userId');
         const quiz_id = localStorage.getItem('quizId');
@@ -100,6 +107,7 @@ export class QuizComponent implements OnInit {
         console.log(answers);
         const request = {
             'user_id': user_id,
+            'time_taken': this.tick,
             'quiz_id': quiz_id,
             'answers': answers
         }
