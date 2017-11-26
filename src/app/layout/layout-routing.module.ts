@@ -15,6 +15,7 @@ const routes: Routes = [
             { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
             { path: 'proficiency', loadChildren: './proficiency/proficiency.module#ProficiencyModule' },
             { path: 'quiz-history', loadChildren: './quiz-history/quiz-history.module#QuizHistoryModule' },
+            { path: 'question-history', loadChildren: './question-history/question-history.module#QuestionHistoryModule' },
             { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
         ]
     }

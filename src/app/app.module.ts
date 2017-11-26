@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import {BackendService} from './backend.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
     // for development
@@ -24,6 +25,7 @@ export function HttpLoaderFactory(http: Http) {
         BrowserAnimationsModule,
         FormsModule,
         HttpModule,
+        NgbModule.forRoot(),
         AppRoutingModule,
         TranslateModule.forRoot({
             loader: {
