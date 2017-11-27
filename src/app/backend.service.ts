@@ -79,4 +79,23 @@ export class BackendService {
             });
     }
 
+    getCategoryAnalystics(userId: any){
+        this.header = new Headers();
+        this.header.append('X-user-id', userId);
+        return this.http.get(this.baseUrl + '/analytics/category/', {headers: this.header}).map(
+            (response: Response) => {
+                return response.json();
+            }
+        )
+    }
+
+    getKnowledgeValues(userId: any){
+
+        return this.http.get(this.baseUrl + '/userProficiency/knowledge/' + userId).map(
+            (response: Response) => {
+                console.log(response);
+                return response.json();
+            }
+        );
+    }
 }

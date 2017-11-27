@@ -1,22 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {
     NgbCarouselModule,
     NgbAlertModule
 } from '@ng-bootstrap/ng-bootstrap';
 
-
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
+import {DashboardRoutingModule} from './dashboard-routing.module';
+import {DashboardComponent} from './dashboard.component';
 import {
     TimelineComponent,
     NotificationComponent,
     ChatComponent
 } from './components';
-import { StatModule } from '../../shared';
+import {StatModule} from '../../shared';
+import {ChartsModule} from 'ng2-charts';
+import {NgxChartsModule} from "@swimlane/ngx-charts";
 
 @NgModule({
     imports: [
+        NgxChartsModule,
         CommonModule,
         NgbCarouselModule.forRoot(),
         NgbAlertModule.forRoot(),
@@ -30,4 +32,5 @@ import { StatModule } from '../../shared';
         ChatComponent
     ]
 })
-export class DashboardModule { }
+export class DashboardModule {
+}
