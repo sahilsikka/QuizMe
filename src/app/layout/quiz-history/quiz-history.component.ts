@@ -12,7 +12,7 @@ import {Color} from 'ng2-charts';
 })
 
 export class QuizHistoryComponent implements OnInit {
-    quizId: any;
+    quizid: any;
     currentUser: any;
     yourTotalScore: number;
     user = JSON.parse(localStorage.getItem('currentUser'));
@@ -44,6 +44,7 @@ export class QuizHistoryComponent implements OnInit {
         let i: number;
         this.backend.getQuizHistory(this.userId)
             .subscribe(status => {
+                console.log(status);
                 this.yourTotalScore = 0;
                 this.result = status;
                 for (i = 0; i < this.result.length; i++) {
@@ -56,7 +57,7 @@ export class QuizHistoryComponent implements OnInit {
 
     toggle(event) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.quizId = this.currentUser.quizHistories[event.target.id].quizId;
-        localStorage.setItem('quizId', this.quizId );
+        this.quizid = this.result[event.target.id].quizId;
+        localStorage.setItem('quizId', this.quizid );
     }
 }

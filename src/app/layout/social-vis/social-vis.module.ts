@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SocialVisRoutingModule} from './social-vis-routing.module';
-import {FormsModule} from '@angular/forms';
+import { ChartsModule as Ng2Charts } from 'ng2-charts';
 import {PageHeaderModule} from '../../shared/modules/page-header/page-header.module';
 import {SocialVisComponent} from './social-vis.component';
 
@@ -9,7 +9,7 @@ import {SocialVisComponent} from './social-vis.component';
     imports: [
         CommonModule,
         SocialVisRoutingModule,
-        FormsModule,
+        Ng2Charts,
         PageHeaderModule
     ],
     declarations: [SocialVisComponent]

@@ -1,19 +1,39 @@
 <div [@routerTransition]>
+
     <h2 class="text-muted">Dashboard
         <small>Statistics Overview</small>
     </h2>
     <div class="row">
-        <div class="col-md-12">
-            <ngb-carousel>
-                <ng-template ngbSlide *ngFor="let slider of sliders">
-                    <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide"
-                         width="100%">
-                    <div class="carousel-caption">
-                        <h3>{{slider.label}}</h3>
-                        <p>{{slider.text}}</p>
-                    </div>
-                </ng-template>
-            </ngb-carousel>
+        <div class="col-md-8">
+            <ngx-charts-advanced-pie-chart
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="datapie"
+                (select)="onSelect($event)">
+            </ngx-charts-advanced-pie-chart>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div align="center" class="card-header">
+                    Leaderboard
+                </div>
+                <div class="card-block">
+                    <table class="table" *ngIf="dataFlag">
+                        <thead class="thead-default">
+                        <tr>
+                            <th>#</th>
+                            <th>Email</th>
+                            <th>Score</th>
+                        </tr>
+                        </thead>
+                            <tr *ngFor="let k of data; let i = index;">
+                                <td>{{i+1}}</td>
+                                <td><a (click)="toggle($event)" id="{{k.name}}" [routerLink]="['/social-vis']" >{{k.name}}</a></td>
+                                <td>{{k.score}}</td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     <hr>

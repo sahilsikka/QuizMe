@@ -1,0 +1,121 @@
+.ngx-charts {
+    float: left;
+    overflow: visible; }
+.ngx-charts .circle,
+.ngx-charts .bar,
+.ngx-charts .arc {
+    cursor: pointer; }
+.ngx-charts .bar.active, .ngx-charts .bar:hover,
+.ngx-charts .cell.active,
+.ngx-charts .cell:hover,
+.ngx-charts .arc.active,
+.ngx-charts .arc:hover,
+.ngx-charts .card.active,
+.ngx-charts .card:hover {
+    opacity: 0.8;
+    -webkit-transition: opacity 100ms ease-in-out;
+    transition: opacity 100ms ease-in-out; }
+.ngx-charts .bar:focus,
+.ngx-charts .cell:focus,
+.ngx-charts .arc:focus,
+.ngx-charts .card:focus {
+    outline: none; }
+.ngx-charts g:focus {
+    outline: none; }
+.ngx-charts .line-series.inactive,
+.ngx-charts .line-series-range.inactive,
+.ngx-charts .polar-series-path.inactive,
+.ngx-charts .polar-series-area.inactive,
+.ngx-charts .area-series.inactive {
+    -webkit-transition: opacity 100ms ease-in-out;
+    transition: opacity 100ms ease-in-out;
+    opacity: .2; }
+.ngx-charts .line-highlight {
+    display: none; }
+.ngx-charts .line-highlight.active {
+    display: block; }
+.ngx-charts .area {
+    opacity: 0.6; }
+.ngx-charts .circle:hover {
+    cursor: pointer; }
+.ngx-charts .label {
+    font-size: 12px;
+    font-weight: normal; }
+.ngx-charts .tooltip-anchor {
+    fill: black; }
+.ngx-charts .gridline-path {
+    stroke: #ddd;
+    stroke-width: 1;
+    fill: none; }
+.ngx-charts .refline-path {
+    stroke: #a8b2c7;
+    stroke-width: 1;
+    stroke-dasharray: 5;
+    stroke-dashoffset: 5; }
+.ngx-charts .refline-label {
+    font-size: 9px; }
+.ngx-charts .reference-area {
+    fill-opacity: 0.05;
+    fill: #000; }
+.ngx-charts .gridline-path-dotted {
+    stroke: #ddd;
+    stroke-width: 1;
+    fill: none;
+    stroke-dasharray: 1, 20;
+    stroke-dashoffset: 3; }
+.ngx-charts .grid-panel rect {
+    fill: none; }
+.ngx-charts .grid-panel.odd rect {
+    fill: rgba(0, 0, 0, 0.05); }
+.advanced-pie {
+    display: inline-block;
+    float: left; }
+
+.advanced-pie-legend-wrapper {
+    width: 507px;
+    height: 400px;
+    display: inline-block; }
+.advanced-pie-legend {
+    float: left;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%); }
+.advanced-pie-legend .total-value {
+    font-size: 36px; }
+.advanced-pie-legend .total-label {
+    font-size: 24px;
+    margin-bottom: 19px; }
+.advanced-pie-legend .legend-items-container {
+    width: 100%; }
+.advanced-pie-legend .legend-items-container .legend-items {
+    white-space: nowrap;
+    overflow: auto; }
+.advanced-pie-legend .legend-items-container .legend-items .legend-item {
+    margin-right: 20px;
+    display: inline-block;
+    cursor: pointer; }
+.advanced-pie-legend .legend-items-container .legend-items .legend-item:focus {
+    outline: none; }
+.advanced-pie-legend .legend-items-container .legend-items .legend-item:hover {
+    color: #000;
+    -webkit-transition: 0.2s;
+    transition: 0.2s; }
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-value {
+    font-size: 24px;
+    margin-top: -6px;
+    margin-left: 11px; }
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-label {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-left: 11px;
+    margin-top: -6px; }
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-percent {
+    font-size: 24px;
+    opacity: 0.7;
+    margin-left: 11px; }
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-color {
+    width: 4px;
+    height: 42px;
+    float: left;
+    margin-right: 7px; }

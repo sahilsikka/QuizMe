@@ -6,12 +6,13 @@ import {Router} from '@angular/router';
 @Injectable()
 export class BackendService {
 
-    baseUrl= 'http://quizme-services.us-east-1.elasticbeanstalk.com';
+    baseUrl = 'http://quizme-services.us-east-1.elasticbeanstalk.com';
     header = new Headers();
 
     constructor(private http: Http, private router: Router) {
         this.http = http;
     }
+
     authUser(email: string, password: any) {
         this.header = new Headers();
         this.header.append('email', email);
@@ -30,6 +31,13 @@ export class BackendService {
 
     getUser(userId: any) {
         return this.http.get(this.baseUrl + '/user/' + userId)
+            .map((response: Response) => {
+                return response.json();
+            });
+    }
+
+    getAllUsers() {
+        return this.http.get(this.baseUrl + '/user/all')
             .map((response: Response) => {
                 return response.json();
             });

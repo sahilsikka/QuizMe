@@ -11,7 +11,7 @@ import {routerTransition} from '../../router.animations';
 
 })
 export class QuestionHistoryComponent implements OnInit {
-
+    noOfChoices: number;
     yourTotalScore: number;
     // user = JSON.parse(localStorage.getItem('currentUser'));
     userId = localStorage.getItem('userId');
@@ -48,6 +48,7 @@ export class QuestionHistoryComponent implements OnInit {
             .subscribe(status => {
                 console.log(status);
                 this.result = status;
+                this.noOfChoices = Object.keys(this.result[0].options).length;
                 // for (i = 0; i < this.result.length; i++) {
                 //     this.yourTotalScore = this.yourTotalScore + this.result[i].score;
                 // }

@@ -6,8 +6,13 @@
                 <div class="card-block">
                     <div class="row">
                         <div>
-                            <span class="icon-small"><i class="fa fa-check-circle fa-fw" style="float: left; font-size: 20px; color:#2ec866;"></i>
-                            <h4 style="color: #2ec866; font-size: 1.3125em; opacity: .6;"><b>{{i + 1}}. {{item.question}}</b></h4>
+                            <span class="icon-small" *ngIf="item.answer === item.userChoice">
+                                <i class="fa fa-check-circle fa-fw" style="float: left; color:#2ec866; font-size: 20px;"></i>
+                                <h4 style="font-size: 1.3125em; color:#2ec866; opacity: .6;"><b>{{i + 1}}. {{item.question}}</b></h4>
+                            </span>
+                            <span class="icon-small" *ngIf="item.answer !== item.userChoice">
+                                <i class="fa fa-times fa-fw" style="float: left; color:#ee3922; font-size: 20px;"></i>
+                                <h4 style="font-size: 1.3125em; color: #ee3922; opacity: .6;"><b>{{i + 1}}. {{item.question}}</b></h4>
                             </span>
                         </div>
                         <!--<div class="col-sm-4" style="float: right">
@@ -18,46 +23,49 @@
                     </div>
                     <hr>
                     <div class="small bold mdT pull-left">
-                        <span style="color: #979faf; font-weight: 900">Choice:</span>
-                        <span style="font-weight: 900">{{item.score}}</span> &ensp;
-                        <span style="color: #979faf; font-weight: 900">Max Score: </span>
-                        <span style="font-weight: 900"> 10</span> &ensp;
-                        <span style="color: #979faf; font-weight: 900">Difficulty: </span>
-                        <span style="font-weight: 900"> Easy </span> &ensp;
-                    </div>
-                    <div class="small bold mdT pull-left">
-                        <span style="color: #979faf; font-weight: 900">Your Score: </span>
-                        <span style="font-weight: 900">{{item.score}}</span> &ensp;
-                        <span style="color: #979faf; font-weight: 900">Max Score: </span>
-                        <span style="font-weight: 900"> 10</span> &ensp;
+                        <span style="color: #979faf; font-weight: 900" *ngIf="item.options.choiceA != undefined">Choice A: &emsp;<span
+                            style="color:#000000 ;font-weight: 900">{{item.options.choiceA}}</span></span><br>
+                        <span style="color: #979faf; font-weight: 900" *ngIf="item.options.choiceB != undefined">Choice B: &emsp;<span
+                            style="color:#000000 ;font-weight: 900">{{item.options.choiceB}}</span></span><br>
+                        <span style="color: #979faf; font-weight: 900" *ngIf="item.options.choiceC != undefined">Choice C: &emsp;<span
+                            style="color:#000000 ;font-weight: 900">{{item.options.choiceC}}</span></span><br>
+                        <span style="color: #979faf; font-weight: 900" *ngIf="item.options.choiceD != undefined">Choice D: &emsp;<span
+                            style="color:#000000 ;font-weight: 900">{{item.options.choiceD}}</span></span><br>
+                        <span style="color: #979faf; font-weight: 900" *ngIf="item.options.choiceE != undefined">Choice E: &emsp;<span
+                            style="color:#000000 ;font-weight: 900">{{item.options.choiceE}}</span><br></span>&ensp;
+                        <hr>
+                        <span style="color: #979faf; font-weight: 900">Your Choice: </span>
+                        <span style="font-weight: 900">{{item.userChoice}}</span> &ensp;
+                        <span style="color: #979faf; font-weight: 900">Correct Choice: </span>
+                        <span style="font-weight: 900">{{item.answer}}</span> &ensp;
                         <span style="color: #979faf; font-weight: 900">Difficulty: </span>
                         <span style="font-weight: 900"> Easy </span> &ensp;
                     </div>
                     <div style="float: right">
-                        <a class="btn tn-sm btn-success" >Discussions</a>
+                        <a class="btn tn-sm btn-success">Discussions</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col col-sm-4">
-           <!-- <div class="card mb-3">
-                <div class="card-header">
-                    Performance over {{this.totalQuiz}} Quizzes.
+            <!-- <div class="card mb-3">
+                 <div class="card-header">
+                     Performance over {{this.totalQuiz}} Quizzes.
 
-                </div>
-                <div class="card-block">
-                    <canvas baseChart height="180px"
-                            [colors] = "colorsOverride"
-                            [data]="[this.yourTotalScore,this.totalScore]"
-                            [labels]="['Points Scored', 'Points Lost']"
-                            [legend] = "true"
-                            [chartType]="'doughnut'"
-                            [options] = "options"
-                            (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)">
-                    </canvas>
-                </div>
-            </div>-->
+                 </div>
+                 <div class="card-block">
+                     <canvas baseChart height="180px"
+                             [colors] = "colorsOverride"
+                             [data]="[this.yourTotalScore,this.totalScore]"
+                             [labels]="['Points Scored', 'Points Lost']"
+                             [legend] = "true"
+                             [chartType]="'doughnut'"
+                             [options] = "options"
+                             (chartHover)="chartHovered($event)"
+                             (chartClick)="chartClicked($event)">
+                     </canvas>
+                 </div>
+             </div>-->
         </div>
     </div>
 </div>

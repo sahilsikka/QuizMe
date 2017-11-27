@@ -12,51 +12,91 @@ import {Router} from '@angular/router';
 
 export class SocialVisComponent implements OnInit {
     user = JSON.parse(localStorage.getItem('currentUser')) || {};
+    username = this.user.fname + ' ' + this.user.lname;
     userId = this.userId;
-    onClickResult: OnClickEvent;
-    onHoverRatingChangeResult: OnHoverRatingChangeEvent;
-    onRatingChangeResult: OnRatingChangeEven;
-    // myLabelText = 'My text here!';
+
+    // Opponent
+    opponentId: string | any;
+    opponentName: string;
+    opponent: any;
+
+    // Radar
+    public radarChartLabels: string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+    public radarChartData: any = [
+        { data: [65, 59, 90, 81, 56, 55, 40], label: 'You' },
+        { data: [28, 48, 40, 19, 96, 27, 100], label: this.opponentName }
+    ];
+    public radarChartType: string = 'radar';
+
+    // lineChart
+    public lineChartData: Array<any> = [
+        { data: [65, 59, 80, 81, 56, 55, 40], label: 'You' },
+        { data: [28, 48, 40, 19, 86, 27, 90], label: this.opponentName },
+    ];
+    public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    public lineChartOptions: any = {
+        responsive: true
+    };
+    public lineChartColors: Array<any> = [
+        { // grey
+            backgroundColor: 'rgba(148,159,177,0.2)',
+            borderColor: 'rgba(148,159,177,1)',
+            pointBackgroundColor: 'rgba(148,159,177,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+        },
+        { // dark grey
+            backgroundColor: 'rgba(77,83,96,0.2)',
+            borderColor: 'rgba(77,83,96,1)',
+            pointBackgroundColor: 'rgba(77,83,96,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(77,83,96,1)'
+        },
+        { // grey
+            backgroundColor: 'rgba(148,159,177,0.2)',
+            borderColor: 'rgba(148,159,177,1)',
+            pointBackgroundColor: 'rgba(148,159,177,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+        }
+    ];
+    public lineChartLegend: boolean = true;
+    public lineChartType: string = 'line';
+
 
     constructor( public router: Router, private backend: BackendService) {    }
 
     ngOnInit() {
-this.proficiency();
+        this.getOpponent();
     }
 
-    proficiency() {
-        const payLoad = [
-            {
-            'skill_topic' : 'Java',
-            'proficiency': 5
-            }
-            ];
-        // this.backend.getUserProficiency(payLoad).subscribe(
-        //     response => {
-        //         console.log(response);
-        //         // if (response.status === 'Success') {
-        //         //     this.router.navigateByUrl('/login');
-        //         // } else if (response.status === 'Email id exists') {
-        //         //     alert('Email Id exists');
-        //         //     this.router.navigateByUrl('/login');
-        //         //
-        //         // }
-        //     });
+    proficiency() {    }
+
+    // events
+    public chartClicked(e: any): void {
+        // console.log(e);
     }
 
-    onClick = ($event: OnClickEvent) => {
-        console.log('onClick $event: ', $event);
-        this.onClickResult = $event;
-    };
+    getOpponent(){
+        this.opponentId = localStorage.getItem('opponent');
 
-    onRatingChange = ($event: OnRatingChangeEven) => {
-        console.log('onRatingUpdated $event: ', $event);
-        this.onRatingChangeResult = $event;
-    };
+        this.backend.getUser(this.opponentId).subscribe(
+            opp => {
+                console.log(opp);
+                this.opponent = opp;
+                console.log(this.opponent);
+                this.opponentName = this.opponent.fname + " " + this.opponent.lname;
+                console.log(this.opponentName);
+            });
 
-    onHoverRatingChange = ($event: OnHoverRatingChangeEvent) => {
-        console.log('onHoverRatingChange $event: ', $event);
-        this.onHoverRatingChangeResult = $event;
-    };
+    }
+
+    public chartHovered(e: any): void {
+        // console.log(e);
+    }
+
 
 }
