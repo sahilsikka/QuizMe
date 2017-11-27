@@ -10,7 +10,6 @@ export class Quiz {
         if (data) {
             console.log(data)
             this.id = data.id;
-            //this.config = new QuizConfig(data.config);
             this.questions = [];
             data.questions.forEach(q => {
                 this.questions.push(new Question(q));

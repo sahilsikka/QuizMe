@@ -6,7 +6,6 @@ export class Question {
     name: string;
     coursetopic: string;
     level: string;
-    timeTaken: number;
     answered: string;
     options: Option[];
 
@@ -16,7 +15,7 @@ export class Question {
         data = data || {};
         this.id = data.id;
         this.name = data.question;
-        this.coursetopic = data.coursetopic;
+        this.coursetopic = data.category;
         this.options = [];
         if (data.choiceA != null) {
           if (data.answer === 'ChoiceA')
@@ -48,7 +47,7 @@ export class Question {
           else
             this.options.push(new Option(5, data.id, data.choiceE,"ChoiceE",  false));
          }
-        this.level = data.level;
+        this.level = data.levels;
         this.answered = null;
     }
 
