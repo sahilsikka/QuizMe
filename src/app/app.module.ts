@@ -21,7 +21,7 @@ export function HttpLoaderFactory(http: Http) {
 }
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         BrowserModule,
