@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 export function routerTransition() {
     return slideToTop();
@@ -9,12 +9,12 @@ export function slideToRight() {
         state('void', style({})),
         state('*', style({})),
         transition(':enter', [
-            style({ transform: 'translateX(-100%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
+            style({transform: 'translateX(-100%)'}),
+            animate('0.5s ease-in-out', style({transform: 'translateX(0%)'}))
         ]),
         transition(':leave', [
-            style({ transform: 'translateX(0%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(100%)' }))
+            style({transform: 'translateX(0%)'}),
+            animate('0.5s ease-in-out', style({transform: 'translateX(100%)'}))
         ])
     ]);
 }
@@ -24,12 +24,12 @@ export function slideToLeft() {
         state('void', style({})),
         state('*', style({})),
         transition(':enter', [
-            style({ transform: 'translateX(100%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
+            style({transform: 'translateX(100%)'}),
+            animate('0.5s ease-in-out', style({transform: 'translateX(0%)'}))
         ]),
         transition(':leave', [
-            style({ transform: 'translateX(0%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(-100%)' }))
+            style({transform: 'translateX(0%)'}),
+            animate('0.5s ease-in-out', style({transform: 'translateX(-100%)'}))
         ])
     ]);
 }
@@ -39,12 +39,12 @@ export function slideToBottom() {
         state('void', style({})),
         state('*', style({})),
         transition(':enter', [
-            style({ transform: 'translateY(-100%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateY(0%)' }))
+            style({transform: 'translateY(-100%)'}),
+            animate('0.5s ease-in-out', style({transform: 'translateY(0%)'}))
         ]),
         transition(':leave', [
-            style({ transform: 'translateY(0%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateY(100%)' }))
+            style({transform: 'translateY(0%)'}),
+            animate('0.5s ease-in-out', style({transform: 'translateY(100%)'}))
         ])
     ]);
 }
@@ -54,12 +54,12 @@ export function slideToTop() {
         state('void', style({})),
         state('*', style({})),
         transition(':enter', [
-            style({ transform: 'translateY(100%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateY(0%)' }))
+            style({transform: 'translateY(100%)'}),
+            animate('0.5s ease-in-out', style({transform: 'translateY(0%)'}))
         ]),
         transition(':leave', [
-            style({ transform: 'translateY(0%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateY(-100%)' }))
+            style({transform: 'translateY(0%)'}),
+            animate('0.5s ease-in-out', style({transform: 'translateY(-100%)'}))
         ])
     ]);
 }

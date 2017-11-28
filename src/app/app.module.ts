@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Http, HttpModule } from '@angular/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AuthGuard } from './shared';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {Http, HttpModule} from '@angular/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {AuthGuard} from './shared';
 import {BackendService} from './backend.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ChartsModule} from 'ng2-charts/ng2-charts';
@@ -19,6 +19,7 @@ export function HttpLoaderFactory(http: Http) {
     // return new TranslateHttpLoader(http, '/start-angular/SB-Admin-BS4-Angular-4/master/dist/assets/i18n/', '.json');
     return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -37,7 +38,8 @@ export function HttpLoaderFactory(http: Http) {
                 useFactory: HttpLoaderFactory,
                 deps: [Http]
             }
-        })
+        }),
+        NgbModule.forRoot()
     ],
     providers: [AuthGuard, BackendService],
     bootstrap: [AppComponent]

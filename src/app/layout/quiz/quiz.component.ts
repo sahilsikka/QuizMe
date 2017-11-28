@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
+import {Component, OnInit} from '@angular/core';
+import {routerTransition} from '../../router.animations';
 import {BackendService} from '../../backend.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Option, Question, Quiz, QuizConfig} from '../../shared';
@@ -37,17 +37,26 @@ export class QuizComponent implements OnInit {
         size: 1,
         count: 1
     };
-    timer: any ;
-    tick: any ;
+    timer: any;
+    tick: any;
     sub: any;
+
     constructor(private router: Router, private route: ActivatedRoute, private backendService: BackendService) {
     }
+
+    get filteredQuestions() {
+        return (this.quiz.questions) ?
+            this.quiz.questions.slice(this.pager.index, this.pager.index + this.pager.size) : [];
+    }
+
     ngOnInit() {
         console.log(this.user);
         localStorage.setItem('userId', this.user.id);
         this.loadQuiz();
-        this.timer = Observable.timer(1,1000);
-        this.sub = this.timer.subscribe(t => {this.tick = t;});
+        this.timer = Observable.timer(1, 1000);
+        this.sub = this.timer.subscribe(t => {
+            this.tick = t;
+        });
     }
 
     loadQuiz() {
@@ -61,15 +70,11 @@ export class QuizComponent implements OnInit {
         this.mode = 'quiz';
     }
 
-
-    get filteredQuestions() {
-        return (this.quiz.questions) ?
-            this.quiz.questions.slice(this.pager.index, this.pager.index + this.pager.size) : [];
-    }
-
     onSelect(question: Question, option: Option) {
 
-        question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; });
+        question.options.forEach((x) => {
+            if (x.id !== option.id) x.selected = false;
+        });
 
         if (this.config.autoMove) {
             this.goTo(this.pager.index + 1);
@@ -91,7 +96,7 @@ export class QuizComponent implements OnInit {
         return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
     };
 
-    setAnswers(){
+    setAnswers() {
         this.quiz.questions.forEach(x => x.setAnswer());
     }
 
@@ -100,10 +105,14 @@ export class QuizComponent implements OnInit {
         console.log('on submit function')
         this.sub.unsubscribe();
         this.setAnswers();
-        const user_id =  localStorage.getItem('userId');
+        const user_id = localStorage.getItem('userId');
         const quiz_id = localStorage.getItem('quizId');
         const answers = [];
-        this.quiz.questions.forEach(x => answers.push({ 'user_choice': x.answered, 'question_id': x.id, 'time_taken': 15 }));
+        this.quiz.questions.forEach(x => answers.push({
+            'user_choice': x.answered,
+            'question_id': x.id,
+            'time_taken': 15
+        }));
         console.log(answers);
         const request = {
             'user_id': user_id,
@@ -113,13 +122,13 @@ export class QuizComponent implements OnInit {
         }
         this.backendService.submitAnswers(request).subscribe(response => {
             console.log(response);
-            if (response.status === 'Success'){
+            if (response.status === 'Success') {
                 this.mode = 'result';
             }
         });
     }
 
-    startAnotherQuiz(){
+    startAnotherQuiz() {
         this.router.navigateByUrl('/quiz');
     }
 

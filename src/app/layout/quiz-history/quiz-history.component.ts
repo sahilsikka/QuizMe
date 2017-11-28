@@ -8,11 +8,11 @@ import {Color} from 'ng2-charts';
     selector: 'app-quiz-history',
     templateUrl: './quiz-history.component.html',
     styleUrls: ['./quiz-history.component.scss'],
-        animations: [routerTransition()]
+    animations: [routerTransition()]
 })
 
 export class QuizHistoryComponent implements OnInit {
-    quizId: any;
+    quizid: any;
     currentUser: any;
     yourTotalScore: number;
     user = JSON.parse(localStorage.getItem('currentUser'));
@@ -37,6 +37,7 @@ export class QuizHistoryComponent implements OnInit {
         backgroundColor: ['#2ec866', 'lightgrey'],
         hoverBackgroundColor: ['#2ec866', 'lightgrey']
     }];
+
     constructor(public router: Router, private backend: BackendService) {
     }
 
@@ -44,11 +45,13 @@ export class QuizHistoryComponent implements OnInit {
         let i: number;
         this.backend.getQuizHistory(this.userId)
             .subscribe(status => {
+                console.log(status);
                 this.yourTotalScore = 0;
                 this.result = status;
                 for (i = 0; i < this.result.length; i++) {
                     this.yourTotalScore = this.yourTotalScore + this.result[i].score;
-                };
+                }
+                ;
                 this.totalScore = this.result.length * 10 - this.yourTotalScore;
                 this.totalQuiz = this.result.length;
             });
@@ -56,7 +59,8 @@ export class QuizHistoryComponent implements OnInit {
 
     toggle(event) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.quizId = this.currentUser.quizHistories[event.target.id].quizId;
-        localStorage.setItem('quizId', this.quizId );
+        this.quizid = this.result[event.target.id].quizId;
+        console.log(this.quizid);
+        localStorage.setItem('quizId', this.quizid);
     }
 }

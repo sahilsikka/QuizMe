@@ -6,12 +6,23 @@ import {Router} from '@angular/router';
 @Injectable()
 export class BackendService {
 
-    baseUrl= 'http://quizme-services.us-east-1.elasticbeanstalk.com';
+    elasticSearchUrl = 'https://search-aw-service-gj2acwxzzkqsr5pnvwy45jsebi.us-east-1.es.amazonaws.com/java_books/';
+    baseUrl = 'http://quizme-services.us-east-1.elasticbeanstalk.com';
     header = new Headers();
 
     constructor(private http: Http, private router: Router) {
         this.http = http;
     }
+
+    getRecommendation(data) {
+        return this.http.get(this.elasticSearchUrl + "_search?q=" + data)
+            .map(
+                (response: Response) => {
+                    return response.json();
+                }
+            );
+    }
+
     authUser(email: string, password: any) {
         this.header = new Headers();
         this.header.append('email', email);
@@ -30,6 +41,13 @@ export class BackendService {
 
     getUser(userId: any) {
         return this.http.get(this.baseUrl + '/user/' + userId)
+            .map((response: Response) => {
+                return response.json();
+            });
+    }
+
+    getAllUsers() {
+        return this.http.get(this.baseUrl + '/user/all')
             .map((response: Response) => {
                 return response.json();
             });
@@ -56,9 +74,7 @@ export class BackendService {
                 return response.json();
             });
     }
-
-
-
+  
     getUserProficiency(userId: any) {
         return this.http.get(this.baseUrl + '/userProficiency/' + userId)
             .map((response: Response) => {
@@ -83,8 +99,7 @@ export class BackendService {
         )
     }
 
-    getKnowledgeValues(userId: any){
-
+    getKnowledgeValues(userId: any) {
         return this.http.get(this.baseUrl + '/userProficiency/knowledge/' + userId).map(
             (response: Response) => {
                 console.log(response);
@@ -92,6 +107,7 @@ export class BackendService {
             }
         );
     }
+
     getQuestionHistory(quizId, userId) {
         this.header = new Headers();
         this.header.append('X-quiz-id', quizId);
@@ -99,7 +115,8 @@ export class BackendService {
         return this.http.get(this.baseUrl + '/quiz/history', {headers: this.header})
             .map((response: Response) => response.json());
     }
-    getQuestionDiscussion(questionId){
+
+    getQuestionDiscussion(questionId) {
         return this.http.get(this.baseUrl + '/discussion/' + questionId).map(
             (response) => {
                 return response.json();
@@ -117,6 +134,7 @@ export class BackendService {
             }
         );
     }
+
     incrementUpvote(postId) {
         return this.http.put(this.baseUrl + '/discussion/upvote/' + postId, {}).map(
             (response) => {
@@ -124,6 +142,7 @@ export class BackendService {
             }
         );
     }
+  
     incrementDownVote(postId) {
         return this.http.put(this.baseUrl + '/discussion/downvote/' + postId, {}).map(
             (response) => {

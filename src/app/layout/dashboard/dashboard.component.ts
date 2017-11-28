@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {routerTransition} from '../../router.animations';
 import {BackendService} from '../../backend.service';
 import {Response} from '@angular/http';
@@ -7,16 +7,40 @@ import {Response} from '@angular/http';
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
+    encapsulation: ViewEncapsulation.None,
     animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit {
+    wrong: number;
+    yourTotalScore: number;
+    username: any[];
+    totalScore: any[];
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
     currentUser: any;
     quizHistories: any;
     discussions: any;
-    userId: any;
+    users: any;
+    // dataFlag = false;
+
+    // Rank Table
+    public page = 1;
+    public itemsPerPage = 10;
+    public maxSize = 5;
+    public numPages = 1;
+    public length = 0;
+    data: Array<any> = [];
+
+    // Advanced Pie Chart
     view: any[] = [700, 400];
+    datapie: Array<any>
+    colorScheme = {
+        domain: ['#C7B42C', '#377eb8', '#2ec866', '#ee3922', '#AAAAAA']
+    };
+    tooltipDisabled = false;
+
+    // User Level Charts
+    userId: any;
 
     // options
     showXAxis = true;
@@ -24,152 +48,108 @@ export class DashboardComponent implements OnInit {
     gradient = false;
     showLegend = true;
     showXAxisLabel = true;
-    xAxisLabel = 'Country';
     showYAxisLabel = true;
-    yAxisLabel = 'Population';
-    dataFlag=false;
-    colorScheme = {
-        domain: ['#5AA454', '#C0C0C0', '#C7B42C', '#AAAAAA']
-    };
+    dataFlag = false;
 
     // line, area
     autoScale = true;
-    multi = [];
+    barchartResults = [];
+    performanceResults = [];
 
+    constructor(private backend: BackendService) {
+        this.length = this.data.length;
+    }
 
-    constructor(private backendService: BackendService) {
-        this.sliders.push({
-            imagePath: 'assets/images/slider1.jpg',
-            label: 'First slide label',
-            text: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
-        }, {
-            imagePath: 'assets/images/slider2.jpg',
-            label: 'Second slide label',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-        }, {
-            imagePath: 'assets/images/slider3.jpg',
-            label: 'Third slide label',
-            text: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
-        });
+    static sortInDescending(obj) {
+        let arr = [];
+        for (let key in obj) {
+            arr.push({
+                name: key,
+                score: obj[key]
+            });
+        }
 
-        this.alerts.push({
-            id: 1,
-            type: 'success',
-            message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
-        }, {
-            id: 2,
-            type: 'warning',
-            message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
+        return arr.sort(function (a, b) {
+            return b.score - a.score;
         });
     }
 
+    onSelect(event) {
+        console.log(event);
+    }
+
     ngOnInit() {
+        this.backend.getUser(JSON.parse(localStorage.getItem('currentUser')).id).subscribe(
+            user => {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+            });
+        this.rankTable();
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.userId = this.currentUser.id;
         this.quizHistories = this.currentUser.quizHistories.length;
-        this.discussions = this.currentUser.discussions.length
+        this.discussions = this.currentUser.discussions.length;
+        this.yourTotalScore = 0;
+        for (let i = 0; i < this.quizHistories; i++) {
+            this.yourTotalScore = this.yourTotalScore + this.currentUser.quizHistories[i].score;
+        }
+        ;
+        this.wrong = this.quizHistories * 10 - this.yourTotalScore;
+        this.datapie =
+            [
+                {
+                    "name": "Discussions",
+                    "value": this.discussions
+                },
+                {
+                    "name": "Quizzes",
+                    "value": this.quizHistories
+                },
+                {
+                    "name": "Correct Answered",
+                    "value": this.yourTotalScore
+                },
+                {
+                    "name": "Wrong Answered",
+                    "value": this.wrong
+                }
+            ];
         this.knowledgeGraph();
         this.QuestionCorrectBarChart();
     }
 
-    barchartResults = [];
-    performanceResults = [];
-
     knowledgeGraph() {
-
-       this.backendService.getKnowledgeValues(this.userId).subscribe(
-           (response) => {
+        let scoreuntilnow = 0.0;
+        this.backend.getKnowledgeValues(this.userId).subscribe(
+            (response) => {
 
                 console.log(response);
                 const map = new Map();
-                /*const response = [
-                    {
-                        'id': 1,
-                        'skillTopic': 'Variables',
-                        'proficiency': 0,
-                        'quizId': 287992064,
-                        'timestamp': 1511742610000
-                    },
-                    {
-                        'id': 2,
-                        'skillTopic': 'Operators',
-                        'proficiency': 0,
-                        'quizId': 287992064,
-                        'timestamp': 1511742610000
-                    },
-                    {
-                        'id': 3,
-                        'skillTopic': 'Arrays',
-                        'proficiency': 0.1,
-                        'quizId': 287992064,
-                        'timestamp': 1511742610000
-                    },
-                    {
-                        'id': 4,
-                        'skillTopic': 'Strings',
-                        'proficiency': 0,
-                        'quizId': 287992064,
-                        'timestamp': 1511742611000
-                    },
-                    {
-                        'id': 5,
-                        'skillTopic': 'Methods',
-                        'proficiency': 0,
-                        'quizId': 287992064,
-                        'timestamp': 1511742611000
-                    },
-                    {
-                        'id': 21,
-                        'skillTopic': 'Variables',
-                        'proficiency': 100,
-                        'quizId': 727305120,
-                        'timestamp': 1511746795000
-                    },
-                    {
-                        'id': 22,
-                        'skillTopic': 'Operators',
-                        'proficiency': 0,
-                        'quizId': 727305120,
-                        'timestamp': 1511746795000
-                    },
-                    {
-                        'id': 23,
-                        'skillTopic': 'Arrays',
-                        'proficiency': 0,
-                        'quizId': 727305120,
-                        'timestamp': 1511746796000
-                    },
-                    {
-                        'id': 24,
-                        'skillTopic': 'Strings',
-                        'proficiency': 100,
-                        'quizId': 727305120,
-                        'timestamp': 1511746796000
-                    },
-                    {
-                        'id': 25,
-                        'skillTopic': 'Methods',
-                        'proficiency': 0,
-                        'quizId': 727305120,
-                        'timestamp': 1511746796000
-                    }
-                ];*/
-
                 for (let i = 0; i < response.length; i++) {
                     if (!map.has(response[i].skillTopic)) {
                         const arr = new Array();
                         map.set(response[i].skillTopic, arr);
                     }
-                    const elem = {
-                        'name': 'Quiz ' + (map.get(response[i].skillTopic).length + 1),
-                        'value': response[i].proficiency
-                    };
+                    scoreuntilnow = response[i].proficiency;
+
+                    for (let j = 0; j < i; j++) {
+
+                        scoreuntilnow = scoreuntilnow + response[j].proficiency;
+                    }
+                    let elem = {}
+                    if (i == 0) {
+                        elem = {
+                            'name': 'Quiz ' + (map.get(response[i].skillTopic).length + 1),
+                            'value': scoreuntilnow
+                        };
+                    } else {
+                        scoreuntilnow = scoreuntilnow * 1.0 / i;
+                        console.log(scoreuntilnow);
+                        elem = {
+                            'name': 'Quiz ' + (map.get(response[i].skillTopic).length + 1),
+                            'value': scoreuntilnow
+                        };
+                    }
+
                     const arr = map.get(response[i].skillTopic);
                     arr.push(elem);
                     map.set(response[i].skillTopic, arr);
@@ -185,12 +165,12 @@ export class DashboardComponent implements OnInit {
                     console.log(this.dataFlag);
                 }
 
-           }
+            }
         );
     }
 
     QuestionCorrectBarChart() {
-        this.backendService.getCategoryAnalystics(this.userId).subscribe(
+        this.backend.getCategoryAnalystics(this.userId).subscribe(
             (response) => {
 
                 this.barchartResults = new Array();
@@ -207,6 +187,7 @@ export class DashboardComponent implements OnInit {
                     this.barchartResults.push(value);
                 }
 
+
             }
         );
     }
@@ -214,5 +195,44 @@ export class DashboardComponent implements OnInit {
     public closeAlert(alert: any) {
         const index: number = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
+    }
+
+    rankTable() {
+        this.totalScore = [];
+        this.username = [];
+        this.backend.getAllUsers().subscribe(status => {
+            // console.log(status);
+            this.users = status;
+            const obj = {};
+            for (let i = 0; i < status.length; i++) {
+                const user = status[i];
+                this.username.push(user.email);
+                this.totalScore[i] = 0;
+                for (let j = 0; j < user.quizHistories.length; j++) {
+                    // console.log(user.quizHistories[j].score);
+                    this.totalScore[i] = this.totalScore[i] + user.quizHistories[j].score;
+                }
+                if (this.totalScore[i] === 0) {
+                    this.totalScore[i] = 0;
+                } else {
+                    this.totalScore[i] = (this.totalScore[i] / user.quizHistories.length).toFixed(2);
+                }
+                obj[this.username[i]] = parseFloat(this.totalScore[i]);
+            }
+            // console.log(this.totalScore);
+            this.data = DashboardComponent.sortInDescending(obj);
+            // this.dataFlag = true;
+        });
+    }
+
+    toggle(event) {
+        console.log(this.users);
+        // console.log(event.target.id);
+
+        for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].email === event.target.id) {
+                localStorage.setItem('opponent', this.users[i].id);
+            }
+        }
     }
 }

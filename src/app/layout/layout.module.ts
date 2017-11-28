@@ -20,4 +20,5 @@ import {HeaderComponent, SidebarComponent} from '../shared';
     ],
     bootstrap: [LayoutComponent]
 })
-export class LayoutModule {}
+export class LayoutModule {
+}

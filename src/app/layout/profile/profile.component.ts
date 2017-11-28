@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
+import {Component, OnInit} from '@angular/core';
+import {routerTransition} from '../../router.animations';
 import {BackendService} from '../../backend.service';
 import {Router} from '@angular/router';
 
@@ -17,15 +17,16 @@ export class ProfileComponent implements OnInit {
     age = this.user.age;
     gender = this.user.gender;
     country = this.user.country;
+    organization = this.user.orgaznization;
 
-    constructor(public router: Router, private backend: BackendService) { }
+    constructor(public router: Router, private backend: BackendService) {
+    }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
     register() {
-        const payLoad = {
-
-        };
+        const payLoad = {};
         this.backend.createUser(payLoad).subscribe(
             response => {
                 console.log(response);

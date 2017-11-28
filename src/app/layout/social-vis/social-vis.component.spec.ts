@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {StatComponent} from './stat.component';
+import {SocialVisComponent} from './social-vis.component';
 
-describe('StatComponent', () => {
-    let component: StatComponent;
-    let fixture: ComponentFixture<StatComponent>;
+describe('SocialVisComponent', () => {
+    let component: SocialVisComponent;
+    let fixture: ComponentFixture<SocialVisComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [StatComponent]
+            declarations: [SocialVisComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(StatComponent);
+        fixture = TestBed.createComponent(SocialVisComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

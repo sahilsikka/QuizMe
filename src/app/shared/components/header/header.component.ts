@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, NavigationEnd} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -34,7 +33,6 @@ export class HeaderComponent implements OnInit {
     }
 
     onLoggedout() {
-        localStorage.removeItem('quizId');
-        localStorage.removeItem('currentUser');
+        localStorage.clear();
     }
 }

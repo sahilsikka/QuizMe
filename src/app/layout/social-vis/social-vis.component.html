@@ -1,0 +1,36 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Social Visulization'" [icon]="'fa-bar-chart-o'"></app-page-header>
+    <div class="row">
+        <div class="page-header">
+            <h1>Your Comparison with <u>{{opponentName}}</u></h1>
+            <hr>
+        </div>
+        <div class="col col-sm-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Topic Expertise
+                </div>
+                <div class="card-block">
+                    <canvas baseChart height="150px" [datasets]="radarChartData" [labels]="radarChartLabels"
+                            [chartType]="radarChartType" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col col-sm-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Performance
+                </div>
+                <div class="card-block">
+                    <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                            [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                            [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
