@@ -160,7 +160,25 @@ export class QuestionHistoryComponent implements OnInit {
     }
 
     getRecommendedBooks(content, question) {
-        this.backend.getRecommendation(question).subscribe(
+        this.adaptiveData = [];
+        let dat = question.substring(0, 200);
+        dat = dat.replace(/\(|\)/g, "");
+        dat = dat.replace(/,/g, " ");
+        dat = dat.replace(/;/g, "");
+        dat = dat.replace(/:/g, "");
+        dat = dat.replace(/\+/g, "");
+        dat = dat.replace(/=/g, "");
+        dat = dat.replace(/</g, "");
+        dat = dat.replace(/>/g, "");
+        dat = dat.replace(/\?/g, "");
+        dat = dat.replace(/\[/g, "");
+        dat = dat.replace(/]/g, "");
+        dat = dat.replace(/{/g, "");
+        dat = dat.replace(/}/g, "");
+        dat = dat.replace(/%/g, "");
+        dat = dat.substring(0, dat.length-1);
+        console.log(dat);
+        this.backend.getRecommendation(dat).subscribe(
             (response: any) => {
                 for (let i of response.hits.hits) {
                     let topic = i._source.topic;
