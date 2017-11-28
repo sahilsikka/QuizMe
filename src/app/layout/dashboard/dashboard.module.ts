@@ -11,6 +11,7 @@ import {NgxChartsModule} from "ngx-charts";
 
 @NgModule({
     imports: [
+        NgxChartsModule,
         CommonModule,
         Ng2TableModule,
         NgxChartsModule,

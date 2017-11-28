@@ -84,4 +84,37 @@
             </div>
         </div>
     </div>
+
+    <ngx-charts-bar-horizontal-stacked
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="barchartResults"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        >
+    </ngx-charts-bar-horizontal-stacked>
+
+    <div style="float: left" *ngIf="dataFlag">
+        <ngx-charts-line-chart
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="performanceResults"
+            [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [autoScale]="autoScale"
+            >
+        </ngx-charts-line-chart>
+    </div>
 </div>

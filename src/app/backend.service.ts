@@ -74,7 +74,7 @@ export class BackendService {
                 return response.json();
             });
     }
-
+  
     getUserProficiency(userId: any) {
         return this.http.get(this.baseUrl + '/userProficiency/' + userId)
             .map((response: Response) => {
@@ -89,7 +89,7 @@ export class BackendService {
             });
     }
 
-    getCategoryAnalystics(userId: any) {
+    getCategoryAnalystics(userId: any){
         this.header = new Headers();
         this.header.append('X-user-id', userId);
         return this.http.get(this.baseUrl + '/analytics/category/', {headers: this.header}).map(
@@ -100,7 +100,6 @@ export class BackendService {
     }
 
     getKnowledgeValues(userId: any) {
-
         return this.http.get(this.baseUrl + '/userProficiency/knowledge/' + userId).map(
             (response: Response) => {
                 console.log(response);
@@ -143,7 +142,7 @@ export class BackendService {
             }
         );
     }
-
+  
     incrementDownVote(postId) {
         return this.http.put(this.baseUrl + '/discussion/downvote/' + postId, {}).map(
             (response) => {

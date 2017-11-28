@@ -10,6 +10,8 @@ import {AppComponent} from './app.component';
 import {AuthGuard} from './shared';
 import {BackendService} from './backend.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ChartsModule} from 'ng2-charts/ng2-charts';
+import {NgxChartsModule} from "@swimlane/ngx-charts";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
@@ -20,7 +22,7 @@ export function HttpLoaderFactory(http: Http) {
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         BrowserModule,
@@ -29,6 +31,7 @@ export function HttpLoaderFactory(http: Http) {
         HttpModule,
         NgbModule.forRoot(),
         AppRoutingModule,
+        NgxChartsModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

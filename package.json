@@ -28,6 +28,7 @@
         "@swimlane/ngx-charts": "^7.0.1",
         "angular-star-rating": "^3.0.8",
         "angular2-chartjs": "^0.4.1",
+        "angular2-google-chart": "^2.3.0",
         "bootstrap": "^4.0.0-beta",
         "chart.js": "^2.7.1",
         "core-js": "^2.5.1",

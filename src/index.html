@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta charset="utf-8">
@@ -9,6 +11,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script>
+        var googleLoaded = false;
+    // !important: Define which chart packages to preload.Because this package uses ChartWrappers you can use any chart type that Google supports, but if it // isn't loaded it will load it on demand.
+        var googleChartsPackagesToLoad = ['geochart'];
+    </script>
 </head>
 <body>
 <app-root></app-root>

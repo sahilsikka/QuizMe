@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {routerTransition} from '../../router.animations';
 import {BackendService} from '../../backend.service';
+import {Response} from '@angular/http';
 
 @Component({
     selector: 'app-dashboard',
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit {
 
     // User Level Charts
     userId: any;
+
     // options
     showXAxis = true;
     showYAxis = true;
@@ -184,6 +186,7 @@ export class DashboardComponent implements OnInit {
                     const value = {'name': name, 'series': series};
                     this.barchartResults.push(value);
                 }
+
 
             }
         );
