@@ -1,10 +1,13 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Social Visulization'" [icon]="'fa-bar-chart-o'"></app-page-header>
     <div class="row">
+        <div class="col col-sm-12">
         <div class="page-header">
-            <h1>Your Comparison with <u>{{opponentName}}</u></h1>
+            <h1 *ngIf="dataFlag">Your Comparison with <u>{{opponentName}}</u></h1>
             <hr>
         </div>
+        </div>
+        <br>
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
@@ -13,7 +16,8 @@
                 <div class="card-block">
                     <canvas baseChart height="150px" [datasets]="radarChartData" [labels]="radarChartLabels"
                             [chartType]="radarChartType" (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)">
+                            (chartClick)="chartClicked($event)"
+                            *ngIf="dataFlag">
                     </canvas>
                 </div>
             </div>
@@ -27,7 +31,8 @@
                     <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
                             [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
                             [chartType]="lineChartType" (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)">
+                            (chartClick)="chartClicked($event)"
+                             *ngIf="dataFlag">
                     </canvas>
                 </div>
             </div>

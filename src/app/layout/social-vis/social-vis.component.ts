@@ -13,20 +13,13 @@ import {Router} from '@angular/router';
 export class SocialVisComponent implements OnInit {
     user = JSON.parse(localStorage.getItem('currentUser')) || {};
     userId = this.userId;
-
     // Opponent
     opponentId: string | any;
-    opponentName: string;
-    public radarChartData: any = [
-        {data: [75, 55, 80, 70, 86], label: 'You'},
-        {data: [60, 66, 77, 80, 76], label: this.opponentName}
-    ];
+    radarChartData: any = [];
     // lineChart
-    public lineChartData: Array<any> = [
-        {data: [65, 59, 80, 81], label: 'You'},
-        {data: [28, 48, 40, 19, 86, 27, 90], label: this.opponentName},
-    ];
-    opponent: any;
+    lineChartData = [];
+    dataFlag = false;
+    opponentName;
     // Radar
     public radarChartLabels: string[] = ['Arrays', 'Methods', 'Operators', 'Strings', 'Variables'];
     public radarChartType: string = 'radar';
@@ -80,15 +73,26 @@ export class SocialVisComponent implements OnInit {
     }
 
     getOpponent() {
+        let opponentName="";
         this.opponentId = localStorage.getItem('opponent');
         this.backend.getUser(this.opponentId).subscribe(
             opp => {
+                localStorage.setItem('opponentName', opp.fname);
                 console.log(opp);
-                this.opponent = opp;
-                console.log(this.opponent);
-                this.opponentName = this.opponent.fname + " " + this.opponent.lname;
-                console.log(this.opponentName);
+                this.opponentName = opp.fname;
+                opponentName = this.opponentName;
+                this.lineChartData = [
+                    {data: [65, 59, 80, 81], label: 'You'},
+                    {data: [28, 48, 40, 19, 86, 27, 90], label: localStorage.getItem('opponentName')},
+                ];
+                this.radarChartData = [
+                    {data: [75, 55, 80, 70, 86], label: 'You'},
+                    {data: [60, 66, 77, 80, 76], label: localStorage.getItem('opponentName')}
+                ];
+                this.dataFlag = true;
+                console.log(opponentName);
             });
+
     }
 
     public chartHovered(e: any): void {
