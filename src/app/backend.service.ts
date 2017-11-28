@@ -65,14 +65,6 @@ export class BackendService {
             });
     }
 
-    getQuestionHistory(quizId, userId) {
-        this.header = new Headers();
-        this.header.append('X-quiz-id', quizId);
-        this.header.append('X-user-id', userId);
-        return this.http.get(this.baseUrl + '/quiz/history', {headers: this.header})
-            .map((response: Response) => response.json());
-    }
-
     getUserProficiency(userId: any) {
         return this.http.get(this.baseUrl + '/userProficiency/' + userId)
             .map((response: Response) => {
@@ -87,4 +79,66 @@ export class BackendService {
             });
     }
 
+    getCategoryAnalystics(userId: any) {
+        this.header = new Headers();
+        this.header.append('X-user-id', userId);
+        return this.http.get(this.baseUrl + '/analytics/category/', {headers: this.header}).map(
+            (response: Response) => {
+                return response.json();
+            }
+        )
+    }
+
+    getKnowledgeValues(userId: any) {
+
+        return this.http.get(this.baseUrl + '/userProficiency/knowledge/' + userId).map(
+            (response: Response) => {
+                console.log(response);
+                return response.json();
+            }
+        );
+    }
+
+    getQuestionHistory(quizId, userId) {
+        this.header = new Headers();
+        this.header.append('X-quiz-id', quizId);
+        this.header.append('X-user-id', userId);
+        return this.http.get(this.baseUrl + '/quiz/history', {headers: this.header})
+            .map((response: Response) => response.json());
+    }
+
+    getQuestionDiscussion(questionId) {
+        return this.http.get(this.baseUrl + '/discussion/' + questionId).map(
+            (response) => {
+                return response.json();
+            }
+        );
+    }
+
+    postDiscussion(payLoad: any) {
+        this.header = new Headers();
+        this.header.append('Content-Type', 'application/json');
+        console.log((payLoad));
+        return this.http.post(this.baseUrl + '/discussion/post', JSON.stringify(payLoad), {headers: this.header}).map(
+            (response) => {
+                return response;
+            }
+        );
+    }
+
+    incrementUpvote(postId) {
+        return this.http.put(this.baseUrl + '/discussion/upvote/' + postId, {}).map(
+            (response) => {
+                return response.json();
+            }
+        );
+    }
+
+    incrementDownVote(postId) {
+        return this.http.put(this.baseUrl + '/discussion/downvote/' + postId, {}).map(
+            (response) => {
+                return response.json();
+            }
+        );
+    }
 }

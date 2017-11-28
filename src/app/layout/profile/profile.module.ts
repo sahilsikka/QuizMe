@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {ProfileRoutingModule} from './profile-routing.module';
-import { PageHeaderModule } from './../../shared';
+import {PageHeaderModule} from './../../shared';
 import {ProfileComponent} from './profile.component';
-import {RatingModule} from 'ngx-rating';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
     imports: [
         CommonModule,
         ProfileRoutingModule,
         PageHeaderModule,
-        RatingModule
+        FormsModule
     ],
     declarations: [ProfileComponent]
 })
-export class ProfileModule { }
+export class ProfileModule {
+}

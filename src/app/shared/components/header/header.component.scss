@@ -2,31 +2,31 @@ $topnav-background-color: #222;
 .topnav {
     border-radius: 0;
     background-color: $topnav-background-color;
-    padding : 6px;
-    z-index:2;
-    .text-center{
+    padding: 6px;
+    z-index: 2;
+    .text-center {
         text-align: center;
-        padding-left : 0;
+        padding-left: 0;
         cursor: pointer;
     }
-    .top-right-nav{
-        .dropdown-menu{
+    .top-right-nav {
+        .dropdown-menu {
             top: 40px;
             right: -5px;
-            left : auto;
-            .message-preview{
-                .media{
-                    .media-body{
-                        .media-heading{
+            left: auto;
+            .message-preview {
+                .media {
+                    .media-body {
+                        .media-heading {
                             font-size: 14px;
                             font-weight: bold;
-                            margin-bottom : 0;
+                            margin-bottom: 0;
                         }
-                        p{
-                            margin : 0;
+                        p {
+                            margin: 0;
                         }
-                        p.last{
-                            font-size : 13px;
+                        p.last {
+                            font-size: 13px;
                             margin-bottom: 0;
                         }
                     }
@@ -39,6 +39,7 @@ $topnav-background-color: #222;
         }
     }
 }
+
 .messages {
     width: 300px;
     .media {
@@ -62,6 +63,7 @@ $topnav-background-color: #222;
         }
     }
 }
+
 .header .navbar {
     background: $topnav-background-color !important;
 }

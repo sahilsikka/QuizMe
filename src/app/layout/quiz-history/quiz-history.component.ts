@@ -8,7 +8,7 @@ import {Color} from 'ng2-charts';
     selector: 'app-quiz-history',
     templateUrl: './quiz-history.component.html',
     styleUrls: ['./quiz-history.component.scss'],
-        animations: [routerTransition()]
+    animations: [routerTransition()]
 })
 
 export class QuizHistoryComponent implements OnInit {
@@ -37,6 +37,7 @@ export class QuizHistoryComponent implements OnInit {
         backgroundColor: ['#2ec866', 'lightgrey'],
         hoverBackgroundColor: ['#2ec866', 'lightgrey']
     }];
+
     constructor(public router: Router, private backend: BackendService) {
     }
 
@@ -49,7 +50,8 @@ export class QuizHistoryComponent implements OnInit {
                 this.result = status;
                 for (i = 0; i < this.result.length; i++) {
                     this.yourTotalScore = this.yourTotalScore + this.result[i].score;
-                };
+                }
+                ;
                 this.totalScore = this.result.length * 10 - this.yourTotalScore;
                 this.totalQuiz = this.result.length;
             });
@@ -58,6 +60,7 @@ export class QuizHistoryComponent implements OnInit {
     toggle(event) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.quizid = this.result[event.target.id].quizId;
-        localStorage.setItem('quizId', this.quizid );
+        console.log(this.quizid);
+        localStorage.setItem('quizId', this.quizid);
     }
 }

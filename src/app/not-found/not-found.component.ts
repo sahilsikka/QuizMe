@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { routerTransition } from '../router.animations';
+import {Component} from '@angular/core';
+import {routerTransition} from '../router.animations';
 
 @Component({
     selector: 'app-not-found',
@@ -7,4 +7,5 @@ import { routerTransition } from '../router.animations';
     styleUrls: ['not-found.component.scss'],
     animations: [routerTransition()]
 })
-export class NotFoundComponent { }
+export class NotFoundComponent {
+}

@@ -11,7 +11,9 @@
                     Topic Expertise
                 </div>
                 <div class="card-block">
-                    <canvas baseChart height="150px" [datasets]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                    <canvas baseChart height="150px" [datasets]="radarChartData" [labels]="radarChartLabels"
+                            [chartType]="radarChartType" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
                     </canvas>
                 </div>
             </div>
@@ -22,7 +24,10 @@
                     Performance
                 </div>
                 <div class="card-block">
-                    <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                    <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                            [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                            [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
                     </canvas>
                 </div>
             </div>

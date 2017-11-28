@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
-import { ProficiencyComponent } from './proficiency.component';
+import {ProficiencyComponent} from './proficiency.component';
 
 const routes: Routes = [
-    { path: '', component: ProficiencyComponent }
+    {path: '', component: ProficiencyComponent}
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class ProficiencyRoutingModule { }
+export class ProficiencyRoutingModule {
+}

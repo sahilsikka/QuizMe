@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.router.url === '/login' &&  this.authguard.canActivate()) {
+        if (this.router.url === '/login' && this.authguard.canActivate()) {
             this.router.navigate(['/dashboard']);
         }
     }

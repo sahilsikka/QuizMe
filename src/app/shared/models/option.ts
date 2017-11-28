@@ -2,7 +2,7 @@ export class Option {
     id: number;
     questionId: number;
     name: string;
-    choice:string;
+    choice: string;
     isAnswer: boolean;
     selected: boolean;
 
@@ -14,11 +14,11 @@ export class Option {
         this.isAnswer = answer;
     }
 
-    getChoice(){
-      return this.choice;
+    getChoice() {
+        return this.choice;
     }
 
-    getSelected(){
-      return this.selected;
+    getSelected() {
+        return this.selected;
     }
 }

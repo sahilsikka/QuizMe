@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.router.url === '/signup' &&  this.authguard.canActivate()) {
+        if (this.router.url === '/signup' && this.authguard.canActivate()) {
             this.router.navigate(['/dashboard']);
         } else {
             this.router.navigate(['/signup']);

@@ -6,7 +6,8 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-8">
-                            <span class="icon-small"><i class="fa fa-check-circle fa-fw" style="float: left; font-size: 20px; color:#2ec866;"></i>
+                            <span class="icon-small"><i class="fa fa-check-circle fa-fw"
+                                                        style="float: left; font-size: 20px; color:#2ec866;"></i>
                             <h4 style="color: #2ec866; font-size: 1.3125em; opacity: .6;"><b>Quiz Number: {{i + 1}}</b></h4>
                             </span>
                         </div>
@@ -28,7 +29,9 @@
                         <span style="font-weight: 900"> Easy </span> &ensp;
                     </div>
                     <div style="float: right">
-                        <button (click)="toggle($event)" class="btn tn-sm btn-success" id="{{i}}" [routerLink]="['/question-history']" >Attempt</button>
+                        <button (click)="toggle($event)" class="btn tn-sm btn-success" id="{{i}}"
+                                [routerLink]="['/question-history']">Attempt
+                        </button>
 
                     </div>
                 </div>
@@ -42,12 +45,12 @@
                 </div>
                 <div class="card-block">
                     <canvas baseChart height="180px"
-                            [colors] = "colorsOverride"
+                            [colors]="colorsOverride"
                             [data]="[this.yourTotalScore,this.totalScore]"
                             [labels]="['Points Scored', 'Points Lost']"
-                            [legend] = "true"
+                            [legend]="true"
                             [chartType]="'doughnut'"
-                            [options] = "options"
+                            [options]="options"
                             (chartHover)="chartHovered($event)"
                             (chartClick)="chartClicked($event)">
                     </canvas>

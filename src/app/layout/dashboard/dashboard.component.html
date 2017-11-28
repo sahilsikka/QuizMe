@@ -1,7 +1,6 @@
 <div [@routerTransition]>
 
-    <h2 class="text-muted">Dashboard
-        <small>Statistics Overview</small>
+    <h2 class="text-muted">Statistics
     </h2>
     <div class="row">
         <div class="col-md-8">
@@ -26,11 +25,12 @@
                             <th>Score</th>
                         </tr>
                         </thead>
-                            <tr *ngFor="let k of data; let i = index;">
-                                <td>{{i+1}}</td>
-                                <td><a (click)="toggle($event)" id="{{k.name}}" [routerLink]="['/social-vis']" >{{k.name}}</a></td>
-                                <td>{{k.score}}</td>
-                            </tr>
+                        <tr *ngFor="let k of data; let i = index;">
+                            <td>{{i+1}}</td>
+                            <td><a (click)="toggle($event)" id="{{k.name}}"
+                                   [routerLink]="['/social-vis']">{{k.name}}</a></td>
+                            <td>{{k.score}}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -38,53 +38,50 @@
     </div>
     <hr>
     <div class="row">
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'card-primary'" [icon]="'fa-comments'" [count]="this.discussions"
-                      [label]="'Comments!'"></app-stat>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'card-info'" [icon]="'fa-tasks'" [count]="this.quizHistories"
-                      [label]="'Quizzes Appeared!'"></app-stat>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'card-success'" [icon]="'fa-shopping-cart'" [count]="124"
-                      [label]="'New Orders!'"></app-stat>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'card-danger'" [icon]="'fa-support'" [count]="13" [label]="'New Tickets!'"></app-stat>
-        </div>
-    </div>
-    <hr/>
-    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}
-    </ngb-alert>
-    <hr/>
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card card-default">
-                <div class="card-header">
-                    <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+        <div class="col-md-8" *ngIf="dataFlag">
+            <div class="card mb-3">
+                <div align="center" class="card-header">
+                    Line Chart
                 </div>
-                <!-- /.card-header -->
-                <app-timeline></app-timeline>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col-lg-8 -->
-        <div class="col-lg-4">
-            <div class="card card-default">
-                <div class="card-header">
-                    <i class="fa fa-bell fa-fw"></i> Notifications card
+                <div class="card-block">
+                    <ngx-charts-line-chart
+                        [view]="[600, 400]"
+                        [scheme]="colorScheme"
+                        [results]="performanceResults"
+                        [gradient]="gradient"
+                        [xAxis]="showXAxis"
+                        [yAxis]="showYAxis"
+                        [legend]="showLegend"
+                        [showXAxisLabel]="showXAxisLabel"
+                        [showYAxisLabel]="showYAxisLabel"
+                        [xAxisLabel]="'Quiz'"
+                        [yAxisLabel]="'Proficiency (in %)'"
+                        [autoScale]="autoScale">
+                    </ngx-charts-line-chart>
                 </div>
-                <!-- /.card-header -->
-                <app-notification></app-notification>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-
-            <app-chat></app-chat>
-            <!-- /.card .chat-card -->
         </div>
-        <!-- /.col-lg-4 -->
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div align="center" class="card-header">
+                    Stacked Bar Chart
+                </div>
+                <div class="card-block">
+                    <ngx-charts-bar-horizontal-stacked
+                        [view]="[600, 400]"
+                        [scheme]="colorScheme"
+                        [results]="barchartResults"
+                        [gradient]="gradient"
+                        [xAxis]="showXAxis"
+                        [yAxis]="showYAxis"
+                        [legend]="showLegend"
+                        [showXAxisLabel]="showXAxisLabel"
+                        [showYAxisLabel]="showYAxisLabel"
+                        [xAxisLabel]="'Total Questions'"
+                        [yAxisLabel]="'Topics'">
+                    </ngx-charts-bar-horizontal-stacked>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -7,7 +7,8 @@
                     <div class="row">
                         <div>
                             <span class="icon-small" *ngIf="item.answer === item.userChoice">
-                                <i class="fa fa-check-circle fa-fw" style="float: left; color:#2ec866; font-size: 20px;"></i>
+                                <i class="fa fa-check-circle fa-fw"
+                                   style="float: left; color:#2ec866; font-size: 20px;"></i>
                                 <h4 style="font-size: 1.3125em; color:#2ec866; opacity: .6;"><b>{{i + 1}}. {{item.question}}</b></h4>
                             </span>
                             <span class="icon-small" *ngIf="item.answer !== item.userChoice">
@@ -41,8 +42,42 @@
                         <span style="color: #979faf; font-weight: 900">Difficulty: </span>
                         <span style="font-weight: 900"> Easy </span> &ensp;
                     </div>
-                    <div style="float: right">
-                        <a class="btn tn-sm btn-success">Discussions</a>
+                    <div>
+                        <div class="card-body">
+                            <p>
+                                <button type="button" class="btn tn-sm btn-success"
+                                        (click)="getQuestionDiscussion(item.questionId,i)"
+                                        [attr.aria-expanded]="!bool[i]" [attr.aria-controls]="'collapseExample'+i">
+                                    Discussion
+                                </button>
+                            </p>
+                            <div [id]="'collapseExample'+i" *ngIf="bool[i]">
+                                <ul [id]="'ul'+i" style="list-style: none">
+                                    <form>
+                                        <textarea type="textarea"
+                                                  style="height: 50px;width: 90%;background-color: #eceeef; position: relative; font-size: 14px; "
+                                                  #newPost placeholder="Add a comment" rows="4" cols="50" name="comment"
+                                                  [(ngModel)]="comment"></textarea>
+
+                                        <button class="btn btn-primary" (click)="postComment(item.questionId)">Post
+                                        </button>
+                                    </form>
+                                    <br><br>
+                                    <li *ngFor="let info of information">
+                                        <div style="float: left">{{info.username}}</div>
+                                        <span style="float: right;margin-right: 20px">{{info.timestamp | date:'MM/dd/yyyy h:mm:ss a'}}</span><br><br>
+                                        <div>{{ info.content}}</div>
+                                        <span id="upvote" class="glyphicon glyphicon-thumbs-up"
+                                              (click)="incrementupVote(info.postId, info.upVote,i)"><b
+                                            style="cursor: pointer;text-decoration:underline "> upvote</b> {{info.upVote}}</span>
+                                        <span class="glyphicon glyphicon-thumbs-down"
+                                              (click)="incrementDownVote(info.postId, info.upVote,i)"><b
+                                            style="cursor: pointer;text-decoration:underline "> downvote</b>  {{info.downVote}}</span>
+                                        <hr>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,7 +86,6 @@
             <!-- <div class="card mb-3">
                  <div class="card-header">
                      Performance over {{this.totalQuiz}} Quizzes.
-
                  </div>
                  <div class="card-block">
                      <canvas baseChart height="180px"
@@ -68,4 +102,5 @@
              </div>-->
         </div>
     </div>
+
 </div>
