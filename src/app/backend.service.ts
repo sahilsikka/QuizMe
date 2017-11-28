@@ -6,11 +6,21 @@ import {Router} from '@angular/router';
 @Injectable()
 export class BackendService {
 
+    elasticSearchUrl = 'https://search-aw-service-gj2acwxzzkqsr5pnvwy45jsebi.us-east-1.es.amazonaws.com/java_books/';
     baseUrl = 'http://quizme-services.us-east-1.elasticbeanstalk.com';
     header = new Headers();
 
     constructor(private http: Http, private router: Router) {
         this.http = http;
+    }
+
+    getRecommendation(data) {
+        return this.http.get(this.elasticSearchUrl + "_search?q=" + data)
+            .map(
+                (response: Response) => {
+                    return response.json();
+                }
+            );
     }
 
     authUser(email: string, password: any) {

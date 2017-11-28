@@ -50,6 +50,11 @@
                                         [attr.aria-expanded]="!bool[i]" [attr.aria-controls]="'collapseExample'+i">
                                     Discussion
                                 </button>
+                                <button type="button" class="btn tn-sm btn-warning"
+                                        *ngIf="item.answer !== item.userChoice"
+                                (click)="getRecommendedBooks(content, item.question)">
+                                    Suggested Books
+                                </button>
                             </p>
                             <div [id]="'collapseExample'+i" *ngIf="bool[i]">
                                 <ul [id]="'ul'+i" style="list-style: none">
@@ -104,3 +109,23 @@
     </div>
 
 </div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Top 10 Suggested JavaBooks</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <span *ngFor="let i of adaptiveData; let i=index;">
+            <p>{{i.topic}}</p>
+            <p><a href="{{i.link}}" target="_blank">{{i.link}}</a></p>
+            <hr>
+        </span>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>

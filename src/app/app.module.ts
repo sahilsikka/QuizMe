@@ -35,7 +35,8 @@ export function HttpLoaderFactory(http: Http) {
                 useFactory: HttpLoaderFactory,
                 deps: [Http]
             }
-        })
+        }),
+        NgbModule.forRoot()
     ],
     providers: [AuthGuard, BackendService],
     bootstrap: [AppComponent]

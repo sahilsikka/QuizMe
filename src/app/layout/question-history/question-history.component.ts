@@ -1,16 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {BackendService} from '../../backend.service';
 import {Router} from '@angular/router';
 import {routerTransition} from '../../router.animations';
+import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-question-history',
     templateUrl: './question-history.component.html',
     styleUrls: ['./question-history.component.scss'],
+    encapsulation: ViewEncapsulation.None,
     animations: [routerTransition()]
 
 })
 export class QuestionHistoryComponent implements OnInit {
+    closeResult: string;
     information = [];
     comment: any;
     bool = [];
@@ -22,6 +25,9 @@ export class QuestionHistoryComponent implements OnInit {
     result: any;
     totalQuiz: number;
     totalScore: number;
+    question: string;
+    adaptiveData = [];
+    adaptiveDataFlag = false;
     // Dashboard
     /*options = {
         cutoutPercentage: 70,
@@ -42,7 +48,7 @@ export class QuestionHistoryComponent implements OnInit {
     }];*/
     valueFrom = false;
 
-    constructor(public router: Router, private backend: BackendService) {
+    constructor(public router: Router, private backend: BackendService, private modalService: NgbModal) {
     }
 
     ngOnInit() {
@@ -151,6 +157,40 @@ export class QuestionHistoryComponent implements OnInit {
                 //      this.elementRef.nativeElement.querySelector('').textContent = upVote;
                 this.getQuestionDiscussion(questionId, i);
             });
+    }
+
+    getRecommendedBooks(content, question) {
+        this.backend.getRecommendation(question).subscribe(
+            (response: any) => {
+                for (let i of response.hits.hits) {
+                    let topic = i._source.topic;
+                    topic = topic.replace("<h1>", "");
+                    topic = topic.replace("</h1>", "");
+                    let obj = {"link" : i._source.link, "topic": topic};
+                    this.adaptiveData.push(obj);
+                }
+                console.log(this.adaptiveData);
+            }
+        );
+        this.open(content);
+    }
+
+    open(content) {
+        this.modalService.open(content).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+    }
+
+    private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return  `with: ${reason}`;
+        }
     }
 
 }
