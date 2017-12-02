@@ -58,7 +58,7 @@ export class SocialVisComponent implements OnInit {
 
     constructor(public router: Router, private backend: BackendService) {
         this.getOpponent();
-        this.knowledgeGraph();
+        this.plotRadarForUser();
     }
 
     ngOnInit() {
@@ -88,12 +88,10 @@ export class SocialVisComponent implements OnInit {
                     {data: [60, 66, 77, 80, 76], label: localStorage.getItem('opponentName')}
                 ];*/
                 this.dataFlag = true;
-
             });
     }
     elem1:any;
-    knowledgeGraph() {
-
+    plotRadarForUser() {
         this.backend.getKnowledgeValues(this.userId).subscribe(
             (response) => {
                 let numberOfQuizzes = 0;
@@ -133,13 +131,12 @@ export class SocialVisComponent implements OnInit {
                 };
                // this.radarChartData.push(elem);this.dataFlag1=true;
                 //console.log(this.radarChartData);
-                this.knowledgeGraph1();
+                this.plotRadarForOpponent();
             }
         );
-
     }
 
-    knowledgeGraph1(){
+    plotRadarForOpponent(){
         this.backend.getKnowledgeValues(localStorage.getItem("opponent")).subscribe(
 
             (response) => {
