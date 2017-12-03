@@ -178,7 +178,7 @@ export class DashboardComponent implements OnInit {
                     const name = response[i].category;
                     const series = new Array();
 
-                    const value1 = {'name': 'attempted', 'value': response[i].attempted};
+                    const value1 = {'name': 'attempted', 'value': response[i].attempted - response[i].correct};
                     const value2 = {'name': 'correct', 'value': response[i].correct};
 
                     series.push(value2);
