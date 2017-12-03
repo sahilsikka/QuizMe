@@ -143,7 +143,6 @@ export class DashboardComponent implements OnInit {
                         };
                     } else {
                         scoreuntilnow = scoreuntilnow * 1.0 / i;
-                        console.log(scoreuntilnow);
                         elem = {
                             'name': 'Quiz ' + (map.get(response[i].skillTopic).length + 1),
                             'value': scoreuntilnow
@@ -164,7 +163,6 @@ export class DashboardComponent implements OnInit {
                     this.dataFlag = true;
                     console.log(this.dataFlag);
                 }
-
             }
         );
     }
