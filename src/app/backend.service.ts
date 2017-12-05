@@ -74,7 +74,7 @@ export class BackendService {
                 return response.json();
             });
     }
-  
+
     getUserProficiency(userId: any) {
         return this.http.get(this.baseUrl + '/userProficiency/' + userId)
             .map((response: Response) => {
@@ -142,7 +142,15 @@ export class BackendService {
             }
         );
     }
-  
+
+    update(payLoad, userId){
+        return this.http.put(this.baseUrl+'/user/update/'+userId, JSON.stringify(payLoad)).map(
+            (response)=>{
+                return response.json();
+            }
+        );
+    }
+
     incrementDownVote(postId) {
         return this.http.put(this.baseUrl + '/discussion/downvote/' + postId, {}).map(
             (response) => {

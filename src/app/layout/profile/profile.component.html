@@ -10,7 +10,7 @@
                         <p class="category">Complete your profile</p>
                     </div>
                     <div class="card-content">
-                        <form>
+
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group form-black label-floating is-empty">
@@ -21,13 +21,13 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">First Name</label>
-                                        <input type="text" class="form-control" value="{{firstName}}">
+                                        <input type="text" class="form-control" [(ngModel)]="firstName">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">Last Name</label>
-                                        <input type="text" class="form-control" value="{{lastName}}">
+                                        <input type="text" class="form-control" [(ngModel)]="lastName">
                                     </div>
                                 </div>
                             </div>
@@ -35,13 +35,13 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">Gender</label>
-                                        <input type="text" class="form-control" value="{{gender}}">
+                                        <input type="text" class="form-control" [(ngModel)]="gender">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">Age</label>
-                                        <input type="text" class="form-control" value="{{age}}">
+                                        <input type="text" class="form-control" [(ngModel)]="age">
                                     </div>
                                 </div>
                             </div>
@@ -49,22 +49,22 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">Country</label>
-                                        <input type="text" class="form-control" value="{{country}}">
+                                        <input type="text" class="form-control" [(ngModel)]="country">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">Organization</label>
-                                        <input type="text" value="{{organization}}" class="form-control">
+                                        <input type="text" [(ngModel)]="organization" class="form-control">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <button type="submit" class="btn btn-danger">Update Profile</button>
+                                    <button type="button" (click)="updateProfile()" class="btn btn-danger">Update Profile</button>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
                 </div>
             </div>

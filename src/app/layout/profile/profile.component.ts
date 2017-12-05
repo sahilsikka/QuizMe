@@ -39,4 +39,25 @@ export class ProfileComponent implements OnInit {
                 }
             });
     }
+
+    updateProfile() {
+        const userId = this.user.id;
+        console.log(this.lastName);
+        const payLoad = {
+            "fname":this.firstName,
+            "lname": this.lastName,
+            "gender": this.gender,
+            "organization": this.organization,
+            "country": this.country
+        };
+console.log(payLoad);
+        this.backend.update(payLoad,userId).subscribe(
+            response =>{
+                this.router.navigate(['/dashboard']);
+                //console.log(response);
+            }
+        )
+
+    }
+
 }

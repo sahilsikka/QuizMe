@@ -235,7 +235,7 @@ export class SocialVisComponent implements OnInit {
             let quizScores= new Array();
             let map = new Map();
             for (let i = 0; i < status.length; i++) {
-                if (status[i].id == localStorage.getItem('opponent')){
+                if (status  [i].id == localStorage.getItem('opponent')){
                     user = status[i];
                     break;
                 }
